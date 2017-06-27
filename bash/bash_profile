@@ -1,0 +1,122 @@
+if [ -f ~/.bashrc ]; then
+    . ~/.bashrc
+fi
+# User specific environment and startup programs
+
+UNAME=$(uname | tr "[:upper:]" "[:lower:]")
+if [ "$UNAME" = "darwin" ]; then
+	OS="mac"
+else
+	OS="linux"
+fi
+
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+    SESSION_TYPE=remote/ssh
+else
+    case $(ps -o comm= -p $PPID) in
+        sshd|*/sshd)
+            SESSION_TYPE=remote/ssh
+        ;;
+        *)
+            SESSION_TYPE=local
+        ;;
+    esac
+fi
+
+# Set up shell colors
+BASE16_SHELL=$HOME/.config/base16-shell/
+[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+[ -z "$TMUX" ] && export TERM=xterm-256color
+
+# Set up bash completion scripts
+[[ -f ~/.config/bash/git-completion.bash ]] && source ~/.config/bash/git-completion.bash
+
+# Set up Z - directory hopper
+[[ -f ~/.config/bash/z/z.sh ]] && . ~/.config/bash/z/z.sh
+
+# ----------
+# Options
+# ----------
+# set up vi-mode for bash input
+set -o vi
+
+# ----------
+# Functions
+# ----------
+
+function utime() {
+    if [[ -n "$1" ]]; then
+        # Translate unix timestamp into human-readable date
+        date -d @$1
+    else
+        # Print time in unix format
+        date +%s
+    fi
+}
+
+function htmldiff () {
+    pygmentize -l diff -O full=true -f html
+}
+
+function gcr () {
+    local opts=$@
+    git diff $opts -w | htmldiff | pastie | tee >(pbcopy) >(echo)
+}
+
+function tat () {
+    if [ $# -eq 0 ]; then
+        tmux -2 -u attach
+    else
+        tmux -2 -u attach -dt $@
+    fi
+}
+
+# ----------
+# Aliases
+# ----------
+
+alias ..="cd .."
+alias ...="cd ../.."
+alias ll="ls -alh --color=auto --group-directories-first"
+alias tmux="tmux -2 -u"     # tell tmux unicode and 256 colors are supported
+alias tls="tmux ls"
+alias grep="grep --color=auto --line-buffered"
+
+# NOTE: `brew install coreutils` is necessary for these to work
+if [ "$OS" = "mac" ]; then
+    alias ls="gls"
+    alias vim=nvim
+fi
+
+# ----------
+# Terminal prompt
+# ----------
+bind 'set show-mode-in-prompt on'  # show vi mode in prompt
+bind 'set vi-cmd-mode-string [CMD]'
+bind 'set vi-ins-mode-string [INS]'
+PS1="[\t] \w $ "
+export PROMPT_DIRTRIM=2
+export PS1
+
+# ----------
+# envvars
+# ----------
+
+GOROOT=$HOME/bin/go
+PATH=$PATH:$HOME/bin:$GOROOT/bin
+LC_ALL=en_US.UTF-8
+LANG=en_US.UTF-8
+
+export PATH
+export GOROOT
+export FZF_DEFAULT_COMMAND='
+  (git ls-tree -r --name-only HEAD ||
+   find . -path "*/\.*" -prune -o -type f -print -o -type l -print |
+      sed s/^..//) 2> /dev/null'
+
+# Only set up the ssh_auth_sock symlink when we are in a remote session
+if [ "$SESSION_TYPE" = "remote/ssh" ]; then
+    export SSH_AUTH_SOCK=$HOME/.ssh/ssh_auth_sock
+fi
+
+

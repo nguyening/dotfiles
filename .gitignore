@@ -1,0 +1,6 @@
+tmux/plugins/*
+!tmux/plugins/tpm
+nvim/plugged
+nvim/autoload/.neobundle
+nvim/autoload/NeoBundle.lock
+nvim/.netrwhist

@@ -1,0 +1,6 @@
+Include config.d/appnexus
+
+Protocol 2,1
+ForwardAgent yes
+KeepAlive yes
+
