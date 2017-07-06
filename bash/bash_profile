@@ -109,10 +109,17 @@ alias tmux="tmux -2 -u"     # tell tmux unicode and 256 colors are supported
 alias tls="tmux ls"
 alias grep="grep --color=auto --line-buffered"
 
-# NOTE: `brew install coreutils` is necessary for these to work
 if [ "$OS" = "mac" ]; then
-    alias ls="gls"
+    # XXX: We use aliasing here since OSX does not have an
+    # update-alternatives equivalent
     alias vim=nvim
+
+    # NOTE: `brew install coreutils` is necessary for these to work
+    alias ls="gls"
+fi
+
+if [ "$SESSION_TYPE" = "remote/ssh" ]; then
+    alias pbcopy="ssh local pbcopy -"
 fi
 
 # ----------
