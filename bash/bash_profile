@@ -71,6 +71,33 @@ function tat () {
     fi
 }
 
+function prompt() {
+    git rev-parse 2>/dev/null
+
+    if [ $? -eq 0 ]; then
+        local remote=`git ls-remote --get-url 'origin'`
+        local pattern='^git@github.com:(.*)';
+
+        # XXX: Git's get-urlmatch depends on having a protocol specified
+        # in the remote's URL, so transform them here for compatibility.
+
+        if [[ "$remote" =~ $pattern ]]; then
+            remote="https://github.com/${BASH_REMATCH[1]}"
+        fi
+
+        local username=$(git config --get-urlmatch user.name "$remote")
+        local email=$(git config --get-urlmatch user.email "$remote")
+
+        if [[ -n $username ]]; then
+            GIT_AUTHOR_NAME="$username"
+        fi
+
+        if [[ -n $email ]]; then
+            GIT_AUTHOR_EMAIL="$email"
+        fi
+    fi
+}
+
 # ----------
 # Aliases
 # ----------
@@ -106,17 +133,21 @@ GOROOT=$HOME/bin/go
 PATH=$PATH:$HOME/bin:$GOROOT/bin
 LC_ALL=en_US.UTF-8
 LANG=en_US.UTF-8
+EDITOR=nvim
+PROMPT_COMMAND=prompt
 
+export PROMPT_COMMAND
+export GIT_AUTHOR_EMAIL
+export GIT_AUTHOR_NAME
 export PATH
 export GOROOT
 export FZF_DEFAULT_COMMAND='
   (git ls-tree -r --name-only HEAD ||
    find . -path "*/\.*" -prune -o -type f -print -o -type l -print |
       sed s/^..//) 2> /dev/null'
+export EDITOR
 
 # Only set up the ssh_auth_sock symlink when we are in a remote session
 if [ "$SESSION_TYPE" = "remote/ssh" ]; then
     export SSH_AUTH_SOCK=$HOME/.ssh/ssh_auth_sock
 fi
-
-

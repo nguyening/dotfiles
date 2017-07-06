@@ -1,25 +1,12 @@
 [core]
 	editor = nvim
+[include]
+	path = .gitconfig.d/aliases
+	path = .gitconfig.d/appnexus
 [user]
-	email = rnguyen@appnexus.com
+	email = nguyen.v.richard@gmail.com
 	name = Richard Nguyen
 [push]
 	default = matching
-[alias]
-	co = checkout
-	br = branch
-	bd = branch -D
-	cm = commit -m
-	cam = commit -am
-	rbi = rebase -i
-	st = status
-	pl = pull
-	pom = push origin master
-	poh = push origin HEAD
-	prune = fetch --prune
-	undo = reset --soft HEAD^
-	stash-all = stash save --include-untracked
-	sgrep = "!f() { git grep \"$1\"; git submodule foreach \"git grep '$1'; true\" | grep -B 1 \"$1\"; }; f"
-	graph = log --graph --all --decorate --stat --date=iso
 [status]
 	showUntrackedFiles = all
