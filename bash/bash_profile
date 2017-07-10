@@ -109,7 +109,7 @@ function gitstring() {
     local color='7'
     local ref=''
 
-    if [[ ! $git_status =~ "working directory clean" ]]; then
+    if [[ ! $git_status =~ "working tree clean" ]]; then
         color='1'
     elif [[ $git_status =~ "Your branch is ahead of" ]]; then
         color='3'
@@ -123,8 +123,8 @@ function gitstring() {
         ref="${BASH_REMATCH[1]}"
     fi
 
-    message=$(echo $color_template | sed -e "s/\${index}/$color/" -e "s/\${message}/$ref/")
-    printf " $message"
+    ref_message=$(echo $color_template | sed -e "s/\${index}/$color/" -e "s/\${message}/$ref/")
+    printf " $ref_message"
 }
 
 # TODO: Use a proper hook to do all of these..
