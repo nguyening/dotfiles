@@ -12,3 +12,20 @@ Host bmdev
   StrictHostKeyChecking no
   Hostname 341.bm-rnguyen.user.nym2.adnexus.net
   RemoteForward 8022 localhost:22
+
+Host jump
+  StrictHostKeyChecking no
+  Hostname jump.adnxs.net
+
+Host cjump
+  StrictHostKeyChecking no
+  Hostname 01.jump.nym2.appnexus.net
+  Port 2022
+
+Host jump+*
+  StrictHostKeyChecking no
+  ProxyCommand ssh jump nc $(echo %h | sed 's/^.*+//;/:/!s/$/ %p/;s/:/ /')
+
+Host cjump+*
+  StrictHostKeyChecking no
+  ProxyCommand ssh cjump nc $(echo %h | sed 's/^.*+//;/:/!s/$/ %p/;s/:/ /')
