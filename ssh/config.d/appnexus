@@ -1,31 +1,30 @@
-Host stash
+Host stash jump cjump jump+* cjump+* dev bmdev
   StrictHostKeyChecking no
+
+Host stash
   Hostname stash.corp.appnexus.com
   Port 7999
   User git
 
-Host dev
-  StrictHostKeyChecking no
-  Hostname 1042.rnguyen.user.nym2.adnexus.net
-
-Host bmdev
-  StrictHostKeyChecking no
-  Hostname 341.bm-rnguyen.user.nym2.adnexus.net
-  RemoteForward 8022 localhost:22
-
 Host jump
-  StrictHostKeyChecking no
   Hostname jump.adnxs.net
 
 Host cjump
-  StrictHostKeyChecking no
   Hostname 01.jump.nym2.appnexus.net
   Port 2022
 
 Host jump+*
-  StrictHostKeyChecking no
   ProxyCommand ssh jump nc $(echo %h | sed 's/^.*+//;/:/!s/$/ %p/;s/:/ /')
 
 Host cjump+*
-  StrictHostKeyChecking no
   ProxyCommand ssh cjump nc $(echo %h | sed 's/^.*+//;/:/!s/$/ %p/;s/:/ /')
+
+Host dev bmdev
+  ProxyCommand ssh jump nc %h %p
+  RemoteForward 8022 localhost:22
+
+Host dev
+  Hostname 1042.rnguyen.user.nym2
+
+Host bmdev
+  Hostname 341.bm-rnguyen.user.nym2
