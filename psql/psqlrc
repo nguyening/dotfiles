@@ -1,0 +1,70 @@
+-- Make output less noisy when we first start up.
+\set QUIET 1
+
+-- This records the query history, separating it by user/host/db.
+\set HISTFILE ~/.psql/history- :USER - :HOST - :DBNAME
+
+-- If a command is run more than once in a row, only store it once in history.
+\set HISTCONTROL ignoredups
+
+/*
+ * INTERACTIVE OPTIONS
+ */
+
+-- Set up tab-completion case for SQL-reserved words. This preserves the case
+-- currently being used, falling back to uppercase otherwise.
+\set COMP_KEYWORD_CASE preserve-upper
+
+-- Automatically rollback after an ERROR occurs in an interactive session.
+\set ON_ERROR_ROLLBACK interactive
+
+-- Set the interactive prompt
+--   %[..%] sets up the contained text as bold black
+--   %M is the full hostname of the server
+--   %n is the user name
+--   %/ is the database name
+--   %R is '=' normally, but '^' in single-line mode, and '!' if the session is
+-- disconnected
+--   %[...%] resets the color to non-bold black
+--   %# is '#'' if you're a superuser, otherwise '>'
+
+\set PROMPT1 '%[%033[1m%]%M %n@%/%R%[%033[0m%]%# '
+
+-- Set up the interactive prompt for multi-line mode
+--   %R in prompt 2 is replaced by '-', '*', '$', or a single/double quote
+-- depending on whether more input is expected.
+
+\set PROMPT2 '%R > '
+
+/*
+ * OUTPUT FORMATTING
+ */
+
+-- Verbose error reports.
+\set VERBOSITY verbose
+
+-- Use table format (with headers across the top) by default, but switch to
+-- expanded table format when that output is wider than the screen
+\pset expanded auto
+
+-- By default, NULL displays as an empty space. Print '[NULL]' instead.
+\pset null [NULL]
+
+-- Disable pager for query results since we already use tmux.
+\pset pager off
+
+/*
+ * ALIASES
+ */
+
+-- Get 100 slowest queries, use with :show_slow_queries
+\set show_slow_queries
+'SELECT
+  (total_time / 1000 / 60) as total_minutes,
+  (total_time/calls) as average_time, query
+FROM pg_stat_statements
+ORDER BY 1 DESC
+LIMIT 100;'
+
+-- Unset quiet after we have finished setting up all of our configs.
+\unset QUIET
