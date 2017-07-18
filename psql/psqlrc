@@ -1,6 +1,9 @@
 -- Make output less noisy when we first start up.
 \set QUIET 1
 
+-- Use bash as the shell in \! commands
+\setenv SHELL bash
+
 -- This records the query history, separating it by user/host/db.
 \set HISTFILE ~/.psql/history- :USER - :HOST - :DBNAME
 
@@ -19,16 +22,31 @@
 \set ON_ERROR_ROLLBACK interactive
 
 -- Set the interactive prompt
---   %[..%] sets up the contained text as bold black
---   %M is the full hostname of the server
---   %n is the user name
---   %/ is the database name
---   %R is '=' normally, but '^' in single-line mode, and '!' if the session is
--- disconnected
---   %[...%] resets the color to non-bold black
---   %# is '#'' if you're a superuser, otherwise '>'
+-- TODO: Move this into tmux configs to provide context in the pane title,
+-- rather than the prompt, as this takes up a lot of space.
+/*
+ *  %[...%] designates non-printing control characters as invisible, so that we
+    can support ANSI sequences.
+ *  %033 is the octal representation of the Escape character '^['
 
-\set PROMPT1 '%[%033[1m%]%M %n@%/%R%[%033[0m%]%# '
+    38;5;NUMBERm specifies a 256-color foreground color
+    48;5;NUMBERm specifies a 256-color background color
+
+    ref: http://misc.flogisoft.com/bash/tip_colors_and_formatting
+
+ *  %M is the full hostname of the server
+ *  %/ is the database name
+ *  %n is the user name
+ *  %x is
+     '' when not in a transaction block, or
+     '*' when in a transaction block, or
+     '!' when in a failed transaction block, or
+     '?' when transaction state is indeterminate
+
+ * %`date ..` prints the current time
+ *  %# is '#' if you're a superuser, otherwise '>'
+ */
+\set PROMPT1 '%[%033[38;5;16;48;5;3m%]' ' %M ' '%[%033[38;5;3;48;5;4m%]' '' '%[%033[38;5;16;48;5;4m%]' ' %/ ' '%[%033[38;5;4;48;5;9m%]' '' '%[%033[38;5;16;48;5;9m%]' ' %n ' '%[%033[38;5;9;48;5;0m%]' '' '%x' '%[%033[0m%]' ' %`date "+%H:%M:%S"` \# '
 
 -- Set up the interactive prompt for multi-line mode
 --   %R in prompt 2 is replaced by '-', '*', '$', or a single/double quote
@@ -42,6 +60,10 @@
 
 -- Verbose error reports.
 \set VERBOSITY verbose
+
+-- Set up table border options
+\pset linestyle unicode
+\pset border 2
 
 -- Use table format (with headers across the top) by default, but switch to
 -- expanded table format when that output is wider than the screen
@@ -58,13 +80,42 @@
  */
 
 -- Get 100 slowest queries, use with :show_slow_queries
-\set show_slow_queries
-'SELECT
-  (total_time / 1000 / 60) as total_minutes,
-  (total_time/calls) as average_time, query
-FROM pg_stat_statements
+SELECT $$(
+  SELECT (total_time / 1000 / 60) AS total_minutes,
+          (total_time/calls) AS average_time,
+          query
+    FROM pg_stat_statements
 ORDER BY 1 DESC
-LIMIT 100;'
+   LIMIT 100)$$ AS show_slow_queries \gset
+
+-- Fetch all tables/views that reference columns in another table/view.
+-- Results are grouped by the referenced table/view.
+-- Use with 'SELECT * FROM :"table_deps" AS table_deps'
+SELECT $$(
+  SELECT dependent_ns.nspname AS dependent_schema,
+         dependent_view.relname AS dependent_view,
+         source_ns.nspname AS source_schema,
+         source_table.relname AS source_table,
+         pg_attribute.attname AS column_name
+    FROM pg_depend
+    JOIN pg_rewrite
+         ON pg_depend.objid = pg_rewrite.oid
+    JOIN pg_class
+         AS dependent_view
+         ON pg_rewrite.ev_class = dependent_view.oid
+    JOIN pg_class
+         AS source_table
+         ON pg_depend.refobjid = source_table.oid
+    JOIN pg_attribute
+         ON pg_depend.refobjid = pg_attribute.attrelid
+         AND pg_depend.refobjsubid = pg_attribute.attnum
+    JOIN pg_namespace
+         AS dependent_ns
+         ON dependent_ns.oid = dependent_view.relnamespace
+    JOIN pg_namespace
+         AS source_ns
+         ON source_ns.oid = source_table.relnamespace
+ORDER BY 1,2)$$ AS table_deps \gset
 
 -- Unset quiet after we have finished setting up all of our configs.
 \unset QUIET
