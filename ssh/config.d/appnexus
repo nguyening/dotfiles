@@ -1,4 +1,4 @@
-Host stash jump cjump jump+* cjump+* dev bmdev
+Host stash jump cjump jump+* cjump+* dev bmdev support kovert adnxscmdb
   StrictHostKeyChecking no
 
 Host stash
@@ -28,3 +28,12 @@ Host dev
 
 Host bmdev
   Hostname 341.bm-rnguyen.user.nym2
+
+Host support
+  Hostname 01.support.nym2.appnexus.net
+
+Host kovert
+  Hostname 02.kovert-sand.nym2.appnexus.net
+
+Host adnxscmdb
+  Hostname 02.adnxscmdb-sand.nym2.appnexus.com
