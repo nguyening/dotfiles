@@ -183,8 +183,8 @@ call plug#begin('~/.config/nvim/plugged')
 	" vim-bbye adds intelligent buffer deletion
 	Plug 'moll/vim-bbye'
 
-	" presenting.vim turns markup into presentable slides
-	Plug 'sotte/presenting.vim'
+	" vlide.vim adds interactive presentations
+	Plug 'javier-lopez/vlide.vim'
 
 	" vim-markdown adds better syntax highlighting support for markdown
 	Plug 'tpope/vim-markdown'
@@ -243,6 +243,7 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 
 " vim-markdown
 let g:markdown_fenced_languages = ['python']
+let g:markdown_syntax_conceal = 0
 
 "  ----------
 "  File-specific settings
