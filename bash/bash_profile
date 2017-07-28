@@ -175,8 +175,8 @@ export PS1
 # envvars
 # ----------
 
-GOROOT=$HOME/bin/go
-PATH=$PATH:$HOME/bin:$GOROOT/bin
+GOPATH=$HOME/go
+PATH=$PATH:$HOME/bin:$GOPATH/bin
 LC_ALL=en_US.UTF-8
 LANG=en_US.UTF-8
 EDITOR=nvim
@@ -186,11 +186,7 @@ export PROMPT_COMMAND
 export GIT_AUTHOR_EMAIL
 export GIT_AUTHOR_NAME
 export PATH
-export GOROOT
-export FZF_DEFAULT_COMMAND='
-  (git ls-tree -r --name-only HEAD ||
-   find . -path "*/\.*" -prune -o -type f -print -o -type l -print |
-      sed s/^..//) 2> /dev/null'
+export GOPATH
 export EDITOR
 
 # Only set up the ssh_auth_sock symlink when we are in a remote session
