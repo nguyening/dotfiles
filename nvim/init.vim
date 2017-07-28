@@ -83,8 +83,9 @@ nnoremap <C-h> <C-W><C-H>
 nnoremap <Leader>j :bnext<CR>
 nnoremap <Leader>k :bprevious<CR>
 
-" Remap ESC to jj while in insertion mode
-imap jj <Esc>
+" Remap CTRL-SPACE to toggle between normal/insertion mode
+noremap <C-SPACE> i
+inoremap <C-SPACE> <Esc>
 
 " Trim trailing whitespace with F5
 function! TrimWhitespace()
@@ -244,6 +245,11 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 " vim-markdown
 let g:markdown_fenced_languages = ['python']
 let g:markdown_syntax_conceal = 0
+
+" vlide.vim
+let g:vlide_next = 'n'
+let g:vlide_previous = 'p'
+let g:vlide_statusline = 'Press <n> or <p> to continue'
 
 "  ----------
 "  File-specific settings

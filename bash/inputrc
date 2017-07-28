@@ -1,8 +1,12 @@
+set show-mode-in-prompt on
 set editing-mode vi
 
 $if mode=vi
     set keymap vi-command
-    "jj": vi-insertion-mode
+    Control-@: vi-insertion-mode
+    Control-l: clear-screen
+
     set keymap vi-insert
-    "jj": vi-movement-mode
+    Control-@: vi-movement-mode
+    Control-l: clear-screen
 $endif
