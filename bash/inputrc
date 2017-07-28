@@ -1,11 +1,22 @@
-# NOTE: this feature is only supported in bash 4.4 and readline 7
-set show-mode-in-prompt on
-
 # Set up ViM bindings for readline applications, like the terminal!
 set editing-mode vi
 
-set vi-ins-mode-string \1\e[34;1m\2+ \1\e[0m\2
-set vi-cmd-mode-string \1\e[35;1m\2: \1\e[0m\2
+# Show all completions as soon as I press tab, even if there's more than one
+set show-all-if-ambiguous on
+
+# On menu-complete, first display the common prefix, then cycle through the
+# options while hitting TAB
+set menu-complete-display-prefix on
+
+# NOTE: this feature is only supported in bash 4.4 and readline 7
+set show-mode-in-prompt on
+
+# Display completions using different colors based on file types
+set colored-stats on
+
+# Set up insert/normal mode prefixes in the prompt
+set vi-ins-mode-string \1+ \2
+set vi-cmd-mode-string \1: \2
 
 $if mode=vi
     # Bind CTRL-SPACE to toggle between insertion/normal modes
@@ -14,8 +25,12 @@ $if mode=vi
     set keymap vi-command
     Control-@: vi-insertion-mode
     Control-l: clear-screen
+    TAB: menu-complete
 
     set keymap vi-insert
     Control-@: vi-movement-mode
     Control-l: clear-screen
+
+    # Bind SHIFT-TAB to cycle completion backwards
+    "\e[Z": menu-complete-backward
 $endif
