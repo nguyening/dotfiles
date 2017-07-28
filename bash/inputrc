@@ -1,7 +1,13 @@
+# NOTE: this feature is only supported in bash 4.4 and readline 7
 set show-mode-in-prompt on
+
+# Set up ViM bindings for readline applications, like the terminal!
 set editing-mode vi
 
 $if mode=vi
+    # Bind CTRL-SPACE to toggle between insertion/normal modes
+    # Bind CTRL-L to "clear", just as it is in emacs mode
+
     set keymap vi-command
     Control-@: vi-insertion-mode
     Control-l: clear-screen
