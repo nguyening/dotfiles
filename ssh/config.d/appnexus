@@ -1,4 +1,4 @@
-Host stash jump cjump jump+* cjump+* dev bmdev support kovert adnxscmdb
+Host stash jump cjump jump+* cjump+* dev bmdev support kovert adnxscmdb actools
   StrictHostKeyChecking no
 
 Host stash
@@ -37,3 +37,6 @@ Host kovert
 
 Host adnxscmdb
   Hostname 02.adnxscmdb-sand.nym2.appnexus.com
+
+Host actools
+  Hostname 01.acct-tools.nym2.appnexus.net
