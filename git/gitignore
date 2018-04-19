@@ -1,0 +1,18 @@
+# Ignore Python distribution artifacts
+*.egg-info
+.eggs
+build
+dist
+deb_dist
+README.rst
+
+# Ignore Python bytecode
+*.pyc
+*.pyo
+
+# Ignore test artifacts
+.cache
+.coverage*
+.tox
+coverage.xml
+flake8.txt
