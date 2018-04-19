@@ -40,3 +40,6 @@ Host adnxscmdb
 
 Host actools
   Hostname 01.acct-tools.nym2.appnexus.net
+
+Host coreinfra
+  Hostname 01.coreinfra.nym2.appnexus.net
