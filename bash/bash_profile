@@ -165,6 +165,7 @@ if [ "$OS" = "mac" ]; then
 
     # NOTE: `brew install coreutils` is necessary for these to work
     alias ls="gls"
+    alias cp="gcp"
 fi
 
 if [ "$SESSION_TYPE" = "remote/ssh" ]; then
