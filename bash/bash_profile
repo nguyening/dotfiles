@@ -139,6 +139,14 @@ function prompt() {
     tmux_pane_title "$pane_title"
 }
 
+function venv() {
+    if [[ -z $VIRTUAL_ENV ]]; then
+        virtualenv venv && source venv/bin/activate
+    else
+        deactivate && rm -r venv/bin/activate
+    fi
+}
+
 # ----------
 # Aliases
 # ----------
