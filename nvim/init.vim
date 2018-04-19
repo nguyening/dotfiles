@@ -10,15 +10,17 @@ let g:python_host_prog = expand('~/.pyenv/versions/neovim/bin/python')
 
 set encoding=utf-8
 set confirm           " asks confirmation when read-only etc
-set nobackup          " No swaps or backups
-set noswapfile
+set nobackup          " Disable backups
+set swapfile          " Enable swaps, it's the responsible thing!
+set dir=/tmp          " Put all swapfiles in /tmp to avoid polluting Git repos
 set history=1000
 set hidden            " enables hidden buffers (so we can move w/o saving)
 
 set showmode          " show current mode
 set showmatch         " jumps to next bracket
 set showcmd           " Show command in the last line of the screen
-set number            " show line numbers
+set norelativenumber  " do not show relative line numbers
+set nonumber          " do not show line numbers
 set ruler             " show line and column numbers of the cursor
 set cursorline        " highlight the current line
 
@@ -72,9 +74,6 @@ set nolazyredraw
 
 let mapleader="\<SPACE>"  " Map the leader key to SPACE
 
-" Faster commands with semi-colon instead of colon
-nmap ; :
-
 " Easier splits
 nnoremap <Leader>- :sp<CR>
 nnoremap <Leader><Bar> :vsp<CR>
@@ -92,14 +91,6 @@ nnoremap <Leader>k :bprevious<CR>
 " Remap CTRL-SPACE to toggle between normal/insertion mode
 noremap <C-SPACE> i
 inoremap <C-SPACE> <Esc>
-
-" Trim trailing whitespace with F5
-function! TrimWhitespace()
-	let l:save = winsaveview()
-	%s/\s\+$//e
-	call winrestview(l:save)
-endfunction
-nnoremap <F5> :call TrimWhitespace()<CR>
 
 " Toggle auto-indent for the current file with F8
 function! AutoIndentToggle()
@@ -157,10 +148,6 @@ call plug#begin('~/.config/nvim/plugged')
 	" gitgutter shows a git diff in the sign column
 	Plug 'airblade/vim-gitgutter'
 
-	" delimitMate provides insert mode auto-complete for quotes, parens,
-	" backets, et cetera.
-	Plug 'Raimondi/delimitMate'
-
 	" indentLine adds indentation markers for spaces
 	Plug 'Yggdroot/indentLine'
 
@@ -175,9 +162,6 @@ call plug#begin('~/.config/nvim/plugged')
 
 	" YouCompleteMe adds a language-agnostic code-completion engine
 	Plug 'Valloric/YouCompleteMe'
-
-	" vim-easymotion adds faster navigation via motions
-	Plug 'easymotion/vim-easymotion'
 
 	" vim-coverage adds integration with coveragepy
 	Plug 'google/vim-maktaba'
@@ -195,6 +179,37 @@ call plug#begin('~/.config/nvim/plugged')
 
 	" vim-markdown adds better syntax highlighting support for markdown
 	Plug 'tpope/vim-markdown'
+
+	" tabular makes it easier to line up text
+	Plug 'godlygeek/tabular'
+
+	" vim-unimpaired adds mappings for toggling options + ex commands
+	Plug 'tpope/vim-unimpaired'
+
+	" auto-pairs handles insertion/deletion of braces, parens, and
+	" quotes in pairs
+	Plug 'jiangmiao/auto-pairs'
+
+	" python-mode adds a variety of nice tools for writing python in vim
+	Plug 'python-mode/python-mode'
+
+	" vim-sneak adds a two-character 'f' motion
+	Plug 'justinmk/vim-sneak'
+
+	" vim-javascript adds nice tools for writing javascript in vim
+	Plug 'pangloss/vim-javascript'
+
+	" FastFold improves performance when using folds
+	Plug 'Konfekt/FastFold'
+
+	" vim-surround helps with surrounding chunks of text
+	Plug 'tpope/vim-surround'
+
+	" vim-repeat adds '.' for plugins
+	Plug 'tpope/vim-repeat'
+
+	" vim-yaml-folds adds folding for YAML/RAML/EYAML & SaltStack SLS
+	Plug 'digitalrounin/vim-yaml-folds'
 
 call plug#end()  " end plugin loading and setup
 
@@ -226,12 +241,9 @@ let g:neomake_python_enabled_makers = ['flake8']
 let g:neomake_sh_enabled_makers = []
 let g:neomake_java_enabled_makers = []
 let g:neomake_open_list = 2
-autocmd BufWritePost * Neomake           " run NeoMake on save
-" autocmd BufWritePost,BufEnter * Neomake  " run NeoMake on save and open
+" autocmd BufWritePost * Neomake           " run NeoMake on save
 nnoremap <Leader>o :lopen<CR>            " open the loclist with +o
 nnoremap <Leader>c :lclose<CR>           " close the loclist with +c
-nnoremap <Leader>n :lnext<CR>            " jump to the next location with +n
-nnoremap <Leader>p :lprev<CR>            " jump to the prev location with +p
 
 " fzf
 nnoremap <C-P> :FZF<CR>
@@ -258,6 +270,40 @@ let g:vlide_next = 'n'
 let g:vlide_previous = 'p'
 let g:vlide_statusline = 'Press <n> or <p> to continue'
 
+" unimpaired
+nnoremap coh :<C-R>=eval(&hls) ? (v:hlsearch ? 'noh' : 'set nohls') : 'set hls'<CR><CR>
+
+" python-mode
+let g:pymode = 1
+let g:pymode_motion = 1
+let g:pymode_indent = 1
+let g:pymode_folding = 1
+let g:pymode_doc_bind = 'K'
+let g:pymode_virtualenv = 1
+
+let g:pymode_warnings = 0
+let g:pymode_trim_whitespaces = 0
+let g:pymode_options = 0
+let g:pymode_options_colorcolumn = 0
+let g:pymode_run = 0
+let g:python_breakpoint = 0
+let g:pymode_lint = 0
+let g:pymode_lint_on_write = 0
+let g:pymode_lint_message = 0
+let g:pymode_rope = 0
+let g:pymode_rope_regenerate_on_write = 0
+let g:pymode_rope_completion = 0
+let g:pymode_rope_complete_on_dot = 0
+let g:pymode_rope_completion_bind = ''
+let g:pymode_syntax = 0
+let g:pymode_syntax_all = 0
+let g:pymode_syntax_slow_sync = 0
+
+" FastFold
+let g:fastfold_savehook = 1
+let g:python_folding = 1
+" let g:fastfold_fold_command_suffixes = ['x', 'X', 'a', 'A', 'o', 'O', 'c', 'C']
+
 "  ----------
 "  File-specific settings
 "  ----------
@@ -267,9 +313,13 @@ autocmd Filetype python setlocal ts=4 sts=4 sw=4 et
 autocmd Filetype puppet setlocal ts=2 sts=2 sw=2 et
 autocmd Filetype yaml setlocal ts=2 sts=2 sw=2 et syntax=off
 autocmd Filetype sql setlocal ts=4 sts=4 sw=4 et syntax=pgsql
+autocmd Filetype vim setlocal ts=4 sts=4 sw=4 noet
+autocmd Filetype groovy setlocal ts=2 sts=2 sw=2 et
 au BufNewFile,BufRead *.groovy setf groovy
 au BufNewFile,BufRead Jenkinsfile setf groovy
+au BufNewFile,BufRead *.Jenkinsfile setf groovy
 au BufNewFile,BufRead *.vim setf noet
+au BufRead /tmp/psql.edit.* set syntax=pgsql
 
 augroup qf
 	autocmd!
