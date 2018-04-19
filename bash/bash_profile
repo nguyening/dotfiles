@@ -188,6 +188,8 @@ if [ -z $PYENV_ROOT ]; then
 fi
 
 GOPATH=$HOME/go
+GOROOT=/usr/local/opt/go/libexec
+GOBIN=$GOPATH/bin
 PATH=$PYENV_ROOT/bin:$PATH:$HOME/bin:$GOPATH/bin
 LC_ALL=en_US.UTF-8
 LANG=en_US.UTF-8
@@ -200,7 +202,9 @@ export GIT_COMMITTER_EMAIL
 export GIT_AUTHOR_NAME
 export GIT_COMMITTER_NAME
 export PATH
+export GOROOT
 export GOPATH
+export GOBIN
 export EDITOR
 
 # Only set up the ssh_auth_sock symlink when we are in a remote session
