@@ -4,10 +4,10 @@
 	bd = branch -D
 	cm = commit -m
 	cam = commit -am
+	caa = commit -a --amend --no-edit
 	rbi = rebase -i
 	st = status
 	pl = pull
-	pom = push origin master
 	poh = push origin HEAD
 	prune = fetch --prune
 	undo = reset --soft HEAD^
