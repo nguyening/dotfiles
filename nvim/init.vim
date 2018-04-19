@@ -1,4 +1,10 @@
 "  ----------
+"  General NeoVIM settings
+"  ----------
+
+let g:python_host_prog = expand('~/.pyenv/versions/neovim/bin/python')
+
+"  ----------
 "  General VIM settings
 "  ----------
 
@@ -215,7 +221,7 @@ let g:airline#extensions#hunks#enabled = 0          " disable diff stats in stat
 let g:airline#extensions#virtualenv#enabled = 1     " show active virtualenv in status
 
 " Neomake
-let g:neomake_python_flake8_maker = { 'exe': '/usr/local/bin/flake8' }
+let g:neomake_python_flake8_maker = { 'exe': expand('~/.pyenv/versions/neovim/bin/flake8') }
 let g:neomake_python_enabled_makers = ['flake8']
 let g:neomake_sh_enabled_makers = []
 let g:neomake_java_enabled_makers = []
@@ -240,6 +246,7 @@ let g:indentLine_faster = 1               " fix performance issue w/ long lines
 let g:wstrip_auto = 1
 
 " YouCompleteMe
+let g:ycm_path_to_python_interpreter = expand('~/.pyenv/versions/neovim/bin/python')
 let g:ycm_autoclose_preview_window_after_insertion = 1
 
 " vim-markdown
