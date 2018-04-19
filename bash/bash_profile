@@ -57,7 +57,7 @@ function htmldiff () {
 
 function gcr () {
     local opts=$@
-    git diff $opts -w | htmldiff | pastie | tee >(pbcopy) >(echo)
+    git diff $opts -w | htmldiff | pastie
 }
 
 function tat () {
