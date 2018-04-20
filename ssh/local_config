@@ -4,3 +4,6 @@ Protocol 2,1
 ForwardAgent yes
 KeepAlive yes
 
+Host *
+  AddKeysToAgent yes
+  UseKeychain yes
