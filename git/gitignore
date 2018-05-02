@@ -1,7 +1,6 @@
 # Ignore Python distribution artifacts
 *.egg-info
 .eggs
-build
 dist
 deb_dist
 README.rst
