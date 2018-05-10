@@ -323,6 +323,7 @@ autocmd Filetype sql setlocal ts=4 sts=4 sw=4 et syntax=pgsql
 autocmd Filetype vim setlocal ts=4 sts=4 sw=4 noet
 autocmd Filetype groovy setlocal ts=2 sts=2 sw=2 et
 autocmd Filetype go setlocal ts=4 sts=4 sw=4 noet foldmethod=syntax
+autocmd Filetype sh setlocal ts=2 sts=2 sw=2 et
 au BufNewFile,BufRead *.groovy setf groovy
 au BufNewFile,BufRead Jenkinsfile setf groovy
 au BufNewFile,BufRead *.Jenkinsfile setf groovy
