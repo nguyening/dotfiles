@@ -211,6 +211,9 @@ call plug#begin('~/.config/nvim/plugged')
 	" vim-yaml-folds adds folding for YAML/RAML/EYAML & SaltStack SLS
 	Plug 'digitalrounin/vim-yaml-folds'
 
+	" vim-go adds golang support
+	Plug 'fatih/vim-go'
+
 call plug#end()  " end plugin loading and setup
 
 "  ----------
@@ -315,10 +318,12 @@ autocmd Filetype yaml setlocal ts=2 sts=2 sw=2 et syntax=off
 autocmd Filetype sql setlocal ts=4 sts=4 sw=4 et syntax=pgsql
 autocmd Filetype vim setlocal ts=4 sts=4 sw=4 noet
 autocmd Filetype groovy setlocal ts=2 sts=2 sw=2 et
+autocmd Filetype go setlocal ts=4 sts=4 sw=4 noet foldmethod=syntax
 au BufNewFile,BufRead *.groovy setf groovy
 au BufNewFile,BufRead Jenkinsfile setf groovy
 au BufNewFile,BufRead *.Jenkinsfile setf groovy
 au BufNewFile,BufRead *.vim setf noet
+au BufNewFile,BufRead *.go setf go
 au BufRead /tmp/psql.edit.* set syntax=pgsql
 
 augroup qf
