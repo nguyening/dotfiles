@@ -214,6 +214,10 @@ call plug#begin('~/.config/nvim/plugged')
 	" vim-go adds golang support
 	Plug 'fatih/vim-go'
 
+	" markdown-preview enables instant preview of Markdown files in
+	" your browser
+	Plug 'iamcco/markdown-preview.vim'
+
 call plug#end()  " end plugin loading and setup
 
 "  ----------
