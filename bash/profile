@@ -1,0 +1,6 @@
+# Set up pyenv
+# XXX: this needs to be after PATH has been modified
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+
