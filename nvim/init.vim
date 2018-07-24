@@ -170,6 +170,12 @@ call plug#begin('~/.config/nvim/plugged')
 	" vim-bbye adds intelligent buffer closing
 	Plug 'moll/vim-bbye'
 
+	" async completion framework
+	Plug 'roxma/nvim-yarp'
+	Plug 'ncm2/ncm2'
+	Plug 'ncm2/ncm2-pyclang'
+
+
 call plug#end()  " end plugin loading and setup
 
 "  ----------
@@ -224,10 +230,6 @@ let g:indentLine_faster = 1               " fix performance issue w/ long lines
 " wstrip
 let g:wstrip_auto = 1
 
-" YouCompleteMe
-let g:ycm_path_to_python_interpreter = expand('~/.pyenv/versions/neovim/bin/python')
-let g:ycm_autoclose_preview_window_after_insertion = 1
-
 " vim-markdown
 let g:markdown_fenced_languages = ['python', 'go', 'yaml']
 let g:markdown_syntax_conceal = 0
@@ -276,6 +278,14 @@ let g:go_fold_enable = ['import']
 
 " vim-bbye
 nnoremap <Leader>q :Bwipeout<CR>
+
+" ncm2
+let g:ncm2_pyclang#library_path = '/usr/lib/llvm-3.8/lib'
+au BufEnter * call ncm2#enable_for_buffer()
+autocmd Filetype c,cpp nnoremap <buffer> gd :<c-u>call ncm2_pyclang#goto_declaration()<cr>
+set completeopt=noinsert,menuone,noselect
+inoremap <expr> <C-j> (pumvisible() ? "\<C-n>" : "\<C-j>")
+inoremap <expr> <C-k> (pumvisible() ? "\<C-p>" : "\<C-k>")
 
 "  ----------
 "  File-specific settings
