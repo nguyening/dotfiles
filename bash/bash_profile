@@ -1,3 +1,8 @@
+# BEGIN bash profiling
+#PS4='+ $(gdate "+%s.%N")\011 '
+#exec 3>&2 2>/tmp/bashstart.$$.log
+#set -x
+
 if [ -f ~/.bashrc ]; then
     . ~/.bashrc
 fi
@@ -225,3 +230,7 @@ fi
 # Set up Z - directory hopper
 # XXX: This needs to be at the end of the file because of reasons
 [[ -f ~/.config/bash/z/z.sh ]] && . ~/.config/bash/z/z.sh
+
+# END bash profiling
+#set +x
+#exec 2>&3 3>&-
