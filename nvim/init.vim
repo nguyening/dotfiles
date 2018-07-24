@@ -107,6 +107,7 @@ call plug#begin('~/.config/nvim/plugged')
 
 	" a lightweight status/tabline
 	Plug 'itchyny/lightline.vim'
+	Plug 'felixjung/vim-base16-lightline'
 
 	" focus-events fixes FocusGained/Lost in tmux
 	Plug 'tmux-plugins/vim-tmux-focus-events'
