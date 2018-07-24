@@ -213,7 +213,7 @@ GOPATH=$HOME/go
 GOROOT=/usr/local/opt/go/libexec
 GOBIN=$GOPATH/bin
 
-PATH=$PYENV_ROOT/bin:$PATH:$HOME/bin:$GOPATH/bin
+PATH=$PYENV_ROOT/bin:$HOME/.local/bin:$PATH:$HOME/bin:$GOPATH/bin
 
 EDITOR=nvim
 PROMPT_COMMAND=prompt
