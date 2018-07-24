@@ -228,6 +228,10 @@ HISTTIMEFORMAT='%F %T '
 # Ignore commands that start with space, and duplicate commands
 HISTCONTROL=ignoreboth
 
+if [ "$OS" = "mac" ]; then
+    export LDFLAGS="-I/usr/local/opt/openssl/include -L/usr/local/opt/openssl/lib"
+fi
+
 export PROMPT_COMMAND
 export GIT_AUTHOR_EMAIL
 export GIT_COMMITTER_EMAIL
