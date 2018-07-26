@@ -173,6 +173,10 @@ call plug#begin('~/.config/nvim/plugged')
 	" async completion framework
 	Plug 'roxma/nvim-yarp'
 	Plug 'ncm2/ncm2'
+	Plug 'ncm2/ncm2-bufword'
+	Plug 'ncm2/ncm2-tmux'
+	Plug 'ncm2/ncm2-path'
+	Plug 'ncm2/ncm2-jedi'
 	Plug 'ncm2/ncm2-pyclang'
 
 
@@ -300,6 +304,7 @@ autocmd Filetype vim setlocal ts=4 sts=4 sw=4 noet
 autocmd Filetype groovy setlocal ts=2 sts=2 sw=2 et
 autocmd Filetype go setlocal ts=4 sts=4 sw=4 noet foldmethod=syntax
 autocmd Filetype sh setlocal ts=2 sts=2 sw=2 et
+au Filetype c,cpp setlocal cinoptions=+4,(4:0 sw=8 ts=8 sts=8 noet cindent
 au BufNewFile,BufRead *.groovy setf groovy
 au BufNewFile,BufRead *Jenkinsfile* setf groovy
 au BufNewFile,BufRead *.vim setf noet
