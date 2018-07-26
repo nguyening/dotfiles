@@ -211,10 +211,15 @@ LC_ALL=en_US.UTF-8
 LANG=en_US.UTF-8
 
 GOPATH=$HOME/go
-GOROOT=/usr/local/opt/go/libexec
 GOBIN=$GOPATH/bin
-
 PATH=$PYENV_ROOT/bin:$HOME/.local/bin:$PATH:$HOME/bin:$GOPATH/bin
+
+if [ "$OS" = "linux" ]; then
+  PATH=$PATH:/usr/local/go/bin
+  GOROOT=/usr/local/go
+else
+  GOROOT=/usr/local/opt/go/libexec
+fi
 
 EDITOR=nvim
 PROMPT_COMMAND=prompt
