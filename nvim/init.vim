@@ -118,8 +118,8 @@ call plug#begin('~/.config/nvim/plugged')
 	" fugitive adds git functionality as commands
 	Plug 'tpope/vim-fugitive'
 
-	" gitgutter shows a git diff in the sign column
-	Plug 'airblade/vim-gitgutter'
+	" signify shows a git diff in the sign column
+	Plug 'mhinz/vim-signify'
 
 	" indentLine adds indentation markers for spaces
 	Plug 'Yggdroot/indentLine'
@@ -194,6 +194,10 @@ let g:bufferline_show_bufnr = 0
 let g:bufferline_modified = ''
 
 " lightline
+highlight SignColumn ctermbg=10
+highlight DiffAdd    cterm=none ctermbg=10 ctermfg=2
+highlight DiffDelete cterm=none ctermbg=10 ctermfg=1
+highlight DiffChange cterm=none ctermbg=10 ctermfg=3
 let g:lightline = {
     \ 'colorscheme': 'base16_flat',
     \ 'tab': {
@@ -225,8 +229,12 @@ endfunction
 " fzf
 nnoremap <C-P> :FZF<CR>
 
-" gitgutter
-let g:gitgutter_sign_removed_first_line = '^_'
+" signify
+let g:signify_sign_add               = '+'
+let g:signify_sign_delete            = '-'
+let g:signify_sign_delete_first_line = '‾'
+let g:signify_sign_change            = '~'
+let g:signify_sign_changedelete      = '~'
 
 " indentLine
 let g:indentLine_faster = 1               " fix performance issue w/ long lines
