@@ -46,6 +46,9 @@ set mouse=a           " But I need mouse=a for scolling to work in tmux
 
 set lazyredraw
 
+" Handle merge conflicts with vertical splits
+set diffopt+=vertical
+
 " Enable path/file expansion in colon-mode
 set wildmode=list:longest
 set wildchar=<TAB>
@@ -97,6 +100,10 @@ function! AutoIndentToggle()
 	endif
 endfunction
 nnoremap <C-i> :call AutoIndentToggle()<CR>
+
+" These work like * and g*, but do not move the cursor and always set hls.
+:map <Leader>* :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<C-M>
+:map <Leader>g* :let @/ = expand('<cword>')\|set hlsearch<C-M><Paste>
 
 "  ----------
 "  Plugins - :PlugInstall to install
@@ -193,6 +200,8 @@ let g:bufferline_active_buffer_left = ''
 let g:bufferline_active_buffer_right = ''
 let g:bufferline_show_bufnr = 0
 let g:bufferline_modified = ''
+let g:bufferline_fname_mod = ':.'
+let g:bufferline_pathshorten = 1
 
 " lightline
 highlight SignColumn ctermbg=10
@@ -304,7 +313,7 @@ inoremap <expr> <C-k> (pumvisible() ? "\<C-p>" : "\<C-k>")
 "  File-specific settings
 "  ----------
 
-autocmd Filetype javascript setlocal ts=4 sts=4 sw=4 noexpandtab
+autocmd Filetype javascript setlocal ts=2 sts=2 sw=2 expandtab
 autocmd Filetype python setlocal ts=4 sts=4 sw=4 et
 autocmd Filetype puppet setlocal ts=2 sts=2 sw=2 et
 autocmd Filetype yaml setlocal ts=2 sts=2 sw=2 et syntax=off
@@ -318,7 +327,7 @@ au BufNewFile,BufRead *.groovy setf groovy
 au BufNewFile,BufRead *Jenkinsfile* setf groovy
 au BufNewFile,BufRead *.vim setf noet
 au BufNewFile,BufRead *.go setf go
-au BufRead /tmp/psql.edit.* set syntax=pgsql
+au BufRead /tmp/psql.edit.* setlocal syntax=pgsql
 
 augroup qf
 	autocmd!
