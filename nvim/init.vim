@@ -3,6 +3,7 @@
 "  ----------
 
 let g:python_host_prog = expand('~/.pyenv/versions/neovim/bin/python')
+let g:python3_host_prog = '/usr/local/bin/python3'
 
 "  ----------
 "  General VIM settings
@@ -178,7 +179,7 @@ call plug#begin('~/.config/nvim/plugged')
 	Plug 'ncm2/ncm2-path'
 	Plug 'ncm2/ncm2-jedi'
 	Plug 'ncm2/ncm2-pyclang'
-
+	Plug 'ncm2/ncm2-tern'
 
 call plug#end()  " end plugin loading and setup
 
