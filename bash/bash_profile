@@ -221,6 +221,14 @@ else
   GOROOT=/usr/local/opt/go/libexec
 fi
 
+if [ "$OS" = "linux" ]; then
+  CC=clang-3.8
+  CXX=clang++-3.8
+
+  export CC
+  export CXX
+fi
+
 EDITOR=nvim
 PROMPT_COMMAND=prompt
 
