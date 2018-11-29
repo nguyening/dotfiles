@@ -1,5 +1,5 @@
 [alias]
-	co = checkout
+	co = checkout --recurse-submodules
 	br = branch
 	bd = branch -D
 	cm = commit -m
@@ -14,3 +14,5 @@
 	stash-all = stash save --include-untracked
 	sgrep = "!f() { git grep \"$1\"; git submodule foreach \"git grep '$1'; true\" | grep -B 1 \"$1\"; }; f"
 	graph = log --graph --all --decorate --stat --date=iso
+	sh = stash
+	shame = blame -w -M

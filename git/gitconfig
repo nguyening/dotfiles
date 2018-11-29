@@ -13,3 +13,5 @@
 	showUntrackedFiles = all
 [grep]
 	patternType = perl
+[url "https://github.com/"]
+	insteadOf = git://github.com/

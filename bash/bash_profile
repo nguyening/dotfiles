@@ -245,6 +245,10 @@ HISTCONTROL=ignoreboth
 if [ "$OS" = "mac" ]; then
     export LDFLAGS="-I/usr/local/opt/openssl/include -L/usr/local/opt/openssl/lib"
 fi
+if [ "$OS" = "linux" ]; then
+  export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/usr/local/adnxs/lib"
+  export CPATH="/usr/local/adnxs/include"
+fi
 
 export PROMPT_COMMAND
 export GIT_AUTHOR_EMAIL
