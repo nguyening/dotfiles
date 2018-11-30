@@ -1,4 +1,4 @@
-Host stash jump cjump jump+* cjump+* dev support actools
+Host stash jump jump+* dev
   StrictHostKeyChecking no
 
 Host stash
@@ -9,26 +9,10 @@ Host stash
 Host jump
   Hostname jump.adnxs.net
 
-Host cjump
-  Hostname 01.jump.nym2.appnexus.net
-  Port 2022
-
 Host jump+*
   ProxyCommand ssh jump nc $(echo %h | sed 's/^.*+//;/:/!s/$/ %p/;s/:/ /')
 
-Host cjump+*
-  ProxyCommand ssh cjump nc $(echo %h | sed 's/^.*+//;/:/!s/$/ %p/;s/:/ /')
-
 Host dev
-  Hostname 341.bm-rnguyen.user.nym2
+  Hostname 540.bm-rnguyen.user.nym2
   ProxyCommand ssh jump nc %h %p
   RemoteForward 8022 localhost:22
-
-Host support
-  Hostname 01.support.nym2.appnexus.net
-
-Host actools
-  Hostname 01.acct-tools.nym2.appnexus.net
-
-Host coreinfra
-  Hostname 01.coreinfra.nym2.appnexus.net
