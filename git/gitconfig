@@ -15,3 +15,5 @@
 	patternType = perl
 [url "https://github.com/"]
 	insteadOf = git://github.com/
+[url "ssh://git@stash.corp.appnexus.com:7999"]
+	insteadOf = https://stash.corp.appnexus.com/scm

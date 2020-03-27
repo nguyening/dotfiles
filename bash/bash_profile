@@ -29,12 +29,17 @@ else
 fi
 
 # Set up shell colors
-# BASE16_SHELL=$HOME/.config/base16-shell/
-# [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+BASE16_SHELL=$HOME/.config/base16-shell/
+[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 [ -z "$TMUX" ] && export TERM=xterm-256color
 
 # Set up bash completion scripts
 [[ -f ~/.config/bash/git-completion.bash ]] && source ~/.config/bash/git-completion.bash
+
+# Set up nvm for switching between versions of NodeJS
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 # ----------
 # Options
@@ -104,33 +109,6 @@ function set_git_author() {
     fi
 }
 
-function gitstring() {
-    local git_status=`git status 2>/dev/null`
-    local on_branch="On branch ([^${IFS}]*)"
-    local on_commit="HEAD detached at ([^${IFS}]*)"
-    local color_template='#[fg=colour${index}]${message}#[default]'
-
-    local color='7'
-    local ref=''
-
-    if [[ ! $git_status =~ "working tree clean" ]]; then
-        color='1'
-    elif [[ $git_status =~ "Your branch is ahead of" ]]; then
-        color='3'
-    elif [[ $git_status =~ "nothing to commit" ]]; then
-        color='2'
-    fi
-
-    if [[ $git_status =~ $on_branch ]]; then
-        ref="${BASH_REMATCH[1]}"
-    elif [[ $git_status =~ $on_commit ]]; then
-        ref="${BASH_REMATCH[1]}"
-    fi
-
-    ref_message=$(echo $color_template | sed -e "s|\${index}|$color|" -e "s|\${message}|$ref|")
-    printf " $ref_message"
-}
-
 # TODO: Use a proper hook to do all of these..
 function prompt() {
     # Record the history line-by-line
@@ -166,6 +144,10 @@ alias ll="ls -alh --color=auto --group-directories-first"
 alias tmux="tmux -2 -u"     # tell tmux unicode and 256 colors are supported
 alias tls="tmux ls"
 alias grep="grep --color=auto --line-buffered"
+alias gdbi="sudo gdb -p \`pgrep impbus\`"
+alias gdbc="sudo gdb -p \`pgrep cookiemonster\`"
+alias pls="sudo $(fc -ln -1)"
+alias ab="abduco"
 
 if [ "$OS" = "mac" ]; then
     # XXX: We use aliasing here since OSX does not have an
@@ -215,8 +197,8 @@ GOBIN=$GOPATH/bin
 PATH=$PYENV_ROOT/bin:$HOME/.local/bin:$PATH:$HOME/bin:$GOPATH/bin
 
 if [ "$OS" = "linux" ]; then
-  PATH=$PATH:/usr/local/go/bin
-  GOROOT=/usr/local/go
+  GOROOT=/usr/lib/go-1.13
+  PATH=$PATH:$GOROOT/bin
 else
   GOROOT=/usr/local/opt/go/libexec
 fi
@@ -225,6 +207,9 @@ if [ "$OS" = "linux" ]; then
   CC=clang-3.8
   CXX=clang++-3.8
 
+  export LSAN_OPTIONS="suppressions=../../lsan_suppressions.txt:report_objects=1"
+  export ASAN_SYMBOLIZER_PATH="/usr/lib/llvm-3.8/bin/llvm-symbolizer"
+  export ASAN_OPTIONS="verbosity=1:strict_memcmp=1:detect_stack_use_after_return=1:detect_leaks=1:abort_on_error=1:halt_on_error=1"
   export CC
   export CXX
 fi
@@ -246,7 +231,7 @@ if [ "$OS" = "mac" ]; then
     export LDFLAGS="-I/usr/local/opt/openssl/include -L/usr/local/opt/openssl/lib"
 fi
 if [ "$OS" = "linux" ]; then
-  export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/usr/local/adnxs/lib"
+  export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/usr/local/adnxs/lib:"
   export CPATH="/usr/local/adnxs/include"
 fi
 
@@ -281,3 +266,5 @@ fi
 # END bash profiling
 #set +x
 #exec 2>&3 3>&-
+
+export PATH="$HOME/.poetry/bin:$PATH"

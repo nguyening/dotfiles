@@ -3,7 +3,8 @@
 "  ----------
 
 let g:python_host_prog = expand('~/.pyenv/versions/neovim/bin/python')
-let g:python3_host_prog = '/usr/local/bin/python3'
+let g:python3_host_prog = '/usr/bin/python3'
+let &shell = 'bash --login'
 
 "  ----------
 "  General VIM settings
@@ -105,6 +106,36 @@ nnoremap <C-i> :call AutoIndentToggle()<CR>
 :map <Leader>* :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<C-M>
 :map <Leader>g* :let @/ = expand('<cword>')\|set hlsearch<C-M><Paste>
 
+" Double-tap Esc to go into Normal mode from Terminal
+tnoremap <Esc><Esc> <C-\><C-n>
+
+" yank + pbcopy
+" function! PbCopyYank(type, ...) abort
+"     let is_visual = get(a:, 0,0 )
+"     let sel_save = &selection
+"     let &selection = "inclusive"
+"     let reg_save = @@
+" 
+"     " actually yank it
+"     if is_visual
+"         echo "visual"
+"         exe "normal! gvy"
+"     elseif a:type == 'line'
+"         exe "normal! '[V']y"
+"     else
+"         exe "normal! `[v`]y"
+"     endif
+" 
+"     call system('ssh local pbcopy -', @0)
+" 
+" 	let &selection = sel_save
+" endfunction
+" 
+" nnoremap <silent> <Plug>(pb-copy-yank) :set opfunc=PbCopyYank<CR>g@
+" xnoremap <silent> <Plug>(pb-copy-yank) :<C-u>call PbCopyYank(visualmode(), 1)<CR>
+" onoremap <silent> <Plug>(pb-copy-yank) g@
+" map y <Plug>(pb-copy-yank)
+
 "  ----------
 "  Plugins - :PlugInstall to install
 "  ----------
@@ -122,6 +153,7 @@ call plug#begin('~/.config/nvim/plugged')
 
 	" fzf is a fuzzy file finder, faster than Ctrl-P
 	Plug 'junegunn/fzf'
+	Plug 'junegunn/fzf.vim'
 
 	" fugitive adds git functionality as commands
 	Plug 'tpope/vim-fugitive'
@@ -188,6 +220,9 @@ call plug#begin('~/.config/nvim/plugged')
 	Plug 'ncm2/ncm2-pyclang'
 	Plug 'ncm2/ncm2-tern'
 
+	" base16 color scheme
+	Plug 'chriskempson/base16-vim'
+
 call plug#end()  " end plugin loading and setup
 
 "  ----------
@@ -238,6 +273,7 @@ endfunction
 
 " fzf
 nnoremap <C-P> :FZF<CR>
+nnoremap <Leader>b :Buffers<Cr>
 
 " signify
 let g:signify_sign_add               = '+'
@@ -295,19 +331,23 @@ let g:fastfold_savehook = 1
 let g:python_folding = 1
 " let g:fastfold_fold_command_suffixes = ['x', 'X', 'a', 'A', 'o', 'O', 'c', 'C']
 
-" vim-go
-let g:go_fold_enable = ['import']
-
 " vim-bbye
 nnoremap <Leader>q :Bwipeout<CR>
 
 " ncm2
 let g:ncm2_pyclang#library_path = '/usr/lib/llvm-3.8/lib'
+let $NVIM_PYTHON_LOG_FILE="/tmp/nvim_log"
+let $NVIM_PYTHON_LOG_LEVEL="DEBUG"
+
 au BufEnter * call ncm2#enable_for_buffer()
 autocmd Filetype c,cpp nnoremap <buffer> gd :<c-u>call ncm2_pyclang#goto_declaration()<cr>
 set completeopt=noinsert,menuone,noselect
 inoremap <expr> <C-j> (pumvisible() ? "\<C-n>" : "\<C-j>")
 inoremap <expr> <C-k> (pumvisible() ? "\<C-p>" : "\<C-k>")
+
+" chriskempson/base16-vim
+let base16colorspace = 256 "access colors present in 256 colorspace
+colorscheme base16-flat
 
 "  ----------
 "  File-specific settings
