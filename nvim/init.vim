@@ -43,7 +43,6 @@ set shiftround        " < and > commands for indention
 set backspace=indent,eol,start " make backspace work like every other app
 
 set mousemodel=popup  " Disable mouse selection entering the Visual mode
-set mouse=a           " But I need mouse=a for scolling to work in tmux
 
 set lazyredraw
 
@@ -203,7 +202,6 @@ call plug#begin('~/.config/nvim/plugged')
 	Plug 'roxma/nvim-yarp'
 	Plug 'ncm2/ncm2'
 	Plug 'ncm2/ncm2-bufword'
-	Plug 'ncm2/ncm2-tmux'
 	Plug 'ncm2/ncm2-path'
 	Plug 'ncm2/ncm2-jedi'
 	Plug 'ncm2/ncm2-pyclang'

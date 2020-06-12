@@ -22,8 +22,6 @@
 \set ON_ERROR_ROLLBACK interactive
 
 -- Set the interactive prompt
--- TODO: Move this into tmux configs to provide context in the pane title,
--- rather than the prompt, as this takes up a lot of space.
 /*
  *  %[...%] designates non-printing control characters as invisible, so that we
     can support ANSI sequences.
@@ -71,9 +69,6 @@
 
 -- By default, NULL displays as an empty space. Print '[NULL]' instead.
 \pset null [NULL]
-
--- Disable pager for query results since we already use tmux.
-\pset pager off
 
 /*
  * ALIASES

@@ -65,20 +65,6 @@ function gcr () {
     git diff $opts -w | htmldiff | pastie
 }
 
-function tat () {
-    if [ $# -eq 0 ]; then
-        tmux -2 -u attach
-    else
-        tmux -2 -u attach -dt $@
-    fi
-}
-
-function tmux_pane_title() {
-    printf '\033]2;';
-    printf "$@";
-    printf '\033\\';
-}
-
 function set_git_author() {
     local remote=`git ls-remote --get-url 'origin'`
     local pattern='^git@github.com:(.*)';
@@ -117,8 +103,6 @@ function prompt() {
     #     
     #     pane_title="${pane_title} `gitstring`"
     # fi
-
-    # tmux_pane_title "$pane_title"
 }
 
 function venv() {
@@ -136,8 +120,6 @@ function venv() {
 alias ..="cd .."
 alias ...="cd ../.."
 alias ll="ls -alh --color=auto --group-directories-first"
-alias tmux="tmux -2 -u"     # tell tmux unicode and 256 colors are supported
-alias tls="tmux ls"
 alias grep="grep --color=auto --line-buffered"
 alias gdbi="sudo gdb -p \`pgrep impbus\`"
 alias gdbc="sudo gdb -p \`pgrep cookiemonster\`"

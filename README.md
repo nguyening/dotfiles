@@ -3,7 +3,6 @@
 
 ## Requirements
 
-- [tmux](tmux.github.io) >= 2.4
 - [OpenSSH](openssh.com) >= 7.3
 - [neovim](neovim.io)
 - [Git](git-scm.com) >= 2.13
