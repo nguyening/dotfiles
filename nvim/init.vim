@@ -225,7 +225,7 @@ let g:lightline = {
     \},
     \ 'active': {
         \ 'right': [ ],
-        \ 'left': [ [ 'mode' ], [ 'filename' ] ],
+        \ 'left': [ [ 'mode' ], [ 'relativepath' ] ],
     \},
     \ 'component_function': {
     \   'fugitive': 'LightlineFugitive'
@@ -234,7 +234,8 @@ let g:lightline = {
 set noshowmode  " mode is already in lightline
 
 " base16
-colorscheme base16-tomorrow
+colorscheme base16-grayscale-light
+set termguicolors
 
 " fzf
 nnoremap <C-P> :FZF<CR>
@@ -246,10 +247,10 @@ let g:signify_sign_delete            = '-'
 let g:signify_sign_delete_first_line = '‾'
 let g:signify_sign_change            = '~'
 let g:signify_sign_changedelete      = '~'
-highlight SignColumn ctermbg=black
-highlight DiffAdd    cterm=none ctermbg=black ctermfg=2
-highlight DiffDelete cterm=none ctermbg=black ctermfg=1
-highlight DiffChange cterm=none ctermbg=black ctermfg=3
+highlight SignColumn ctermbg=white
+highlight DiffAdd    cterm=none ctermbg=white ctermfg=2
+highlight DiffDelete cterm=none ctermbg=white ctermfg=1
+highlight DiffChange cterm=none ctermbg=white ctermfg=3
 
 " indentLine
 let g:indentLine_faster = 1               " fix performance issue w/ long lines
