@@ -68,6 +68,8 @@ set softtabstop=4     " the number of columns for a TAB
 set shiftwidth=4      " the width of indents
 set expandtab         " expand TABs to spaces
 
+colorscheme ron
+
 "  ----------
 "  Key bindings
 "  ----------
@@ -141,19 +143,11 @@ tnoremap <Esc><Esc> <C-\><C-n>
 "  ----------
 "
 call plug#begin('~/.config/nvim/plugged')
-	" add a list of buffers, like tabs
-	Plug 'bling/vim-bufferline'
-
-	" a lightweight status/tabline
-	Plug 'itchyny/lightline.vim'
-	Plug 'felixjung/vim-base16-lightline'
-
-	" focus-events fixes FocusGained/Lost in tmux
-	Plug 'tmux-plugins/vim-tmux-focus-events'
-
 	" fzf is a fuzzy file finder, faster than Ctrl-P
 	Plug 'junegunn/fzf'
 	Plug 'junegunn/fzf.vim'
+
+	Plug 'itchyny/lightline.vim'
 
 	" fugitive adds git functionality as commands
 	Plug 'tpope/vim-fugitive'
@@ -207,9 +201,6 @@ call plug#begin('~/.config/nvim/plugged')
 	" vim-go adds golang support
 	Plug 'fatih/vim-go'
 
-	" vim-bbye adds intelligent buffer closing
-	Plug 'moll/vim-bbye'
-
 	" async completion framework
 	Plug 'roxma/nvim-yarp'
 	Plug 'ncm2/ncm2'
@@ -220,56 +211,27 @@ call plug#begin('~/.config/nvim/plugged')
 	Plug 'ncm2/ncm2-pyclang'
 	Plug 'ncm2/ncm2-tern'
 
-	" base16 color scheme
-	Plug 'chriskempson/base16-vim'
-
 call plug#end()  " end plugin loading and setup
 
 "  ----------
 "  Plugin settings
 "  ----------
 
-" bufferline
-
-let g:bufferline_active_buffer_left = ''
-let g:bufferline_active_buffer_right = ''
-let g:bufferline_show_bufnr = 0
-let g:bufferline_modified = ''
-let g:bufferline_fname_mod = ':.'
-let g:bufferline_pathshorten = 1
-
 " lightline
-highlight SignColumn ctermbg=10
-highlight DiffAdd    cterm=none ctermbg=10 ctermfg=2
-highlight DiffDelete cterm=none ctermbg=10 ctermfg=1
-highlight DiffChange cterm=none ctermbg=10 ctermfg=3
 let g:lightline = {
-    \ 'colorscheme': 'base16_flat',
+    \ 'colorscheme': 'seoul256',
     \ 'tab': {
         \ 'active': [ 'tabnum', 'filename' ],
         \ 'inactive': [ 'tabnum', 'filename' ],
     \},
     \ 'active': {
         \ 'right': [ ],
-        \ 'left': [ [ 'mode' ], [ 'buffers' ] ],
+        \ 'left': [ [ 'mode' ], [ 'filename' ] ],
     \},
-    \ 'component_expand': {
-        \ 'buffers': 'LightlineBufferline'
-    \ },
-    \ 'component_type': {
-        \ 'buffers': 'tabsel'
-    \ },
     \ 'component_function': {
-    \   'readonly': 'LightlineReadonly',
     \   'fugitive': 'LightlineFugitive'
-    \ },
-    \ 'separator': { 'left': '', 'right': '' },
-    \ 'subseparator': { 'left': '', 'right': '' },
+    \ }
 \}
-function! LightlineBufferline()
-  call bufferline#refresh_status()
-  return [ g:bufferline_status_info.before, g:bufferline_status_info.current, g:bufferline_status_info.after]
-endfunction
 
 " fzf
 nnoremap <C-P> :FZF<CR>
@@ -281,6 +243,10 @@ let g:signify_sign_delete            = '-'
 let g:signify_sign_delete_first_line = '‾'
 let g:signify_sign_change            = '~'
 let g:signify_sign_changedelete      = '~'
+highlight SignColumn ctermbg=black
+highlight DiffAdd    cterm=none ctermbg=black ctermfg=2
+highlight DiffDelete cterm=none ctermbg=black ctermfg=1
+highlight DiffChange cterm=none ctermbg=black ctermfg=3
 
 " indentLine
 let g:indentLine_faster = 1               " fix performance issue w/ long lines
@@ -344,10 +310,6 @@ autocmd Filetype c,cpp nnoremap <buffer> gd :<c-u>call ncm2_pyclang#goto_declara
 set completeopt=noinsert,menuone,noselect
 inoremap <expr> <C-j> (pumvisible() ? "\<C-n>" : "\<C-j>")
 inoremap <expr> <C-k> (pumvisible() ? "\<C-p>" : "\<C-k>")
-
-" chriskempson/base16-vim
-let base16colorspace = 256 "access colors present in 256 colorspace
-colorscheme base16-flat
 
 "  ----------
 "  File-specific settings
