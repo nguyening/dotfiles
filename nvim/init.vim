@@ -68,8 +68,6 @@ set softtabstop=4     " the number of columns for a TAB
 set shiftwidth=4      " the width of indents
 set expandtab         " expand TABs to spaces
 
-colorscheme ron
-
 "  ----------
 "  Key bindings
 "  ----------
@@ -211,7 +209,10 @@ call plug#begin('~/.config/nvim/plugged')
 	Plug 'ncm2/ncm2-pyclang'
 	Plug 'ncm2/ncm2-tern'
 
+	" base16 theme colors
+	Plug 'chriskempson/base16-vim'
 call plug#end()  " end plugin loading and setup
+
 
 "  ----------
 "  Plugin settings
@@ -219,7 +220,7 @@ call plug#end()  " end plugin loading and setup
 
 " lightline
 let g:lightline = {
-    \ 'colorscheme': 'seoul256',
+    \ 'colorscheme': 'Tomorrow',
     \ 'tab': {
         \ 'active': [ 'tabnum', 'filename' ],
         \ 'inactive': [ 'tabnum', 'filename' ],
@@ -232,6 +233,10 @@ let g:lightline = {
     \   'fugitive': 'LightlineFugitive'
     \ }
 \}
+set noshowmode  " mode is already in lightline
+
+" base16
+colorscheme base16-tomorrow
 
 " fzf
 nnoremap <C-P> :FZF<CR>
