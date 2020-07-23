@@ -1,8 +1,8 @@
 [alias]
 	co = checkout --recurse-submodules
+	cod = checkout -d --recurse-submodules
 	br = branch
 	bd = branch -D
-	cm = commit -m
 	cam = commit -am
 	caa = commit -a --amend --no-edit
 	rbi = rebase -i

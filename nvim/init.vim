@@ -14,7 +14,7 @@ set encoding=utf-8
 set confirm           " asks confirmation when read-only etc
 set nobackup          " Disable backups
 set swapfile          " Enable swaps, it's the responsible thing!
-set dir=/tmp          " Put all swapfiles in /tmp to avoid polluting Git repos
+set dir=~/.vim//      " Put all swapfiles in homedir to avoid polluting Git repos
 set history=1000
 set hidden            " enables hidden buffers (so we can move w/o saving)
 
@@ -175,7 +175,7 @@ call plug#begin('~/.config/nvim/plugged')
 
 	" auto-pairs handles insertion/deletion of braces, parens, and
 	" quotes in pairs
-	Plug 'jiangmiao/auto-pairs'
+	" Plug 'jiangmiao/auto-pairs'
 
 	" python-mode adds a variety of nice tools for writing python in vim
 	Plug 'python-mode/python-mode'
@@ -240,6 +240,16 @@ set termguicolors
 " fzf
 nnoremap <C-P> :FZF<CR>
 nnoremap <Leader>b :Buffers<Cr>
+let g:fzf_colors = {
+    \ 'bg': ['bg', 'Title'],
+    \ 'bg+': ['bg', 'CursorLineNr'],
+    \ 'fg+': ['fg', 'CursorLineNr'],
+    \ 'hl': ['bg', 'TermCursor'],
+    \ 'hl+': ['bg', 'TermCursor'],
+    \ 'gutter': ['bg', 'ErrorMsg'],
+    \ 'border': ['bg', 'TermCursor'],
+    \ 'prompt': ['fg', 'ErrorMsg']
+\}
 
 " signify
 let g:signify_sign_add               = '+'
@@ -283,6 +293,7 @@ let g:pymode_trim_whitespaces = 0
 let g:pymode_options = 0
 let g:pymode_options_colorcolumn = 0
 let g:pymode_run = 0
+let g:pymode_breakpoint = 0
 let g:python_breakpoint = 0
 let g:pymode_lint = 0
 let g:pymode_lint_on_write = 0
