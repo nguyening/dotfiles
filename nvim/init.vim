@@ -164,18 +164,11 @@ call plug#begin('~/.config/nvim/plugged')
 	" pgsql.vim adds syntax highlighting for PostgreSQL
 	Plug 'exu/pgsql.vim'
 
-	" vim-bbye adds intelligent buffer deletion
-	Plug 'moll/vim-bbye'
-
 	" vim-markdown adds better syntax highlighting support for markdown
 	Plug 'tpope/vim-markdown'
 
 	" vim-unimpaired adds mappings for toggling options + ex commands
 	Plug 'tpope/vim-unimpaired'
-
-	" auto-pairs handles insertion/deletion of braces, parens, and
-	" quotes in pairs
-	" Plug 'jiangmiao/auto-pairs'
 
 	" python-mode adds a variety of nice tools for writing python in vim
 	Plug 'python-mode/python-mode'
@@ -183,38 +176,94 @@ call plug#begin('~/.config/nvim/plugged')
 	" vim-sneak adds a two-character 'f' motion
 	Plug 'justinmk/vim-sneak'
 
-	" vim-javascript adds nice tools for writing javascript in vim
-	Plug 'pangloss/vim-javascript'
-
 	" FastFold improves performance when using folds
 	Plug 'Konfekt/FastFold'
 
 	" vim-repeat adds '.' for plugins
 	Plug 'tpope/vim-repeat'
 
-	" vim-yaml-folds adds folding for YAML/RAML/EYAML & SaltStack SLS
-	Plug 'digitalrounin/vim-yaml-folds'
-
 	" vim-go adds golang support
 	Plug 'fatih/vim-go'
 
-	" async completion framework
-	Plug 'roxma/nvim-yarp'
-	Plug 'ncm2/ncm2'
-	Plug 'ncm2/ncm2-bufword'
-	Plug 'ncm2/ncm2-path'
-	Plug 'ncm2/ncm2-jedi'
-	Plug 'ncm2/ncm2-pyclang'
-	Plug 'ncm2/ncm2-tern'
-
 	" base16 theme colors
 	Plug 'chriskempson/base16-vim'
+
+	" Use coc.nvim as Language Server Protocol client
+	Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+	" Show LSP/tag information in a sidebar
+	Plug 'liuchengxu/vista.vim'
 call plug#end()  " end plugin loading and setup
 
 
 "  ----------
 "  Plugin settings
 "  ----------
+
+" vista
+let g:vista_default_executive = 'coc'
+let g:vista_icon_indent = ["▸ ", ""]
+let g:vista_fzf_preview = ['right:50%']
+let g:vista#renderer#enable_icon = 0
+let g:vista_keep_fzf_colors = 1
+
+nnoremap <Leader>c :Vista finder coc<Cr>
+
+" coc
+let g:coc_node_path = '~/.config/nvm/versions/node/v12.14.0/bin/node' " I want older node by default
+
+" Having longer updatetime (default is 4000ms = s) 
+" leads to noticeable delays and poor UX
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|
+set shortmess+=c
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Remap format format selected regoin
+xmap <leader>f <Plug>(coc-format-selected)
+nmap <leader>f <Plug>(coc-format-selected)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+    if (index(['vim', 'help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    else
+        call CocAction('doHover')
+    endif
+endfunction
+
+inoremap <silent><expr> <TAB>
+    \ pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1] =~# '\s'
+endfunction
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" ncm2
+" let g:ncm2_pyclang#library_path = '/usr/lib/llvm-3.8/lib'
+" let $NVIM_PYTHON_LOG_FILE="/tmp/nvim_log"
+" let $NVIM_PYTHON_LOG_LEVEL="DEBUG"
+" 
+" au BufEnter * call ncm2#enable_for_buffer()
+" autocmd Filetype c,cpp nnoremap <buffer> gd :<c-u>call ncm2_pyclang#goto_declaration()<cr>
+" set completeopt=noinsert,menuone,noselect
+" inoremap <expr> <C-j> (pumvisible() ? "\<C-n>" : "\<C-j>")
+" inoremap <expr> <C-k> (pumvisible() ? "\<C-p>" : "\<C-k>")
 
 " lightline
 let g:lightline = {
@@ -272,11 +321,6 @@ let g:wstrip_auto = 1
 let g:markdown_fenced_languages = ['python', 'go', 'yaml']
 let g:markdown_syntax_conceal = 0
 
-" vlide.vim
-let g:vlide_next = 'n'
-let g:vlide_previous = 'p'
-let g:vlide_statusline = 'Press <n> or <p> to continue'
-
 " unimpaired
 nnoremap coh :<C-R>=eval(&hls) ? (v:hlsearch ? 'noh' : 'set nohls') : 'set hls'<CR><CR>
 
@@ -311,20 +355,6 @@ let g:pymode_syntax_slow_sync = 0
 let g:fastfold_savehook = 1
 let g:python_folding = 1
 " let g:fastfold_fold_command_suffixes = ['x', 'X', 'a', 'A', 'o', 'O', 'c', 'C']
-
-" vim-bbye
-nnoremap <Leader>q :Bwipeout<CR>
-
-" ncm2
-let g:ncm2_pyclang#library_path = '/usr/lib/llvm-3.8/lib'
-let $NVIM_PYTHON_LOG_FILE="/tmp/nvim_log"
-let $NVIM_PYTHON_LOG_LEVEL="DEBUG"
-
-au BufEnter * call ncm2#enable_for_buffer()
-autocmd Filetype c,cpp nnoremap <buffer> gd :<c-u>call ncm2_pyclang#goto_declaration()<cr>
-set completeopt=noinsert,menuone,noselect
-inoremap <expr> <C-j> (pumvisible() ? "\<C-n>" : "\<C-j>")
-inoremap <expr> <C-k> (pumvisible() ? "\<C-p>" : "\<C-k>")
 
 "  ----------
 "  File-specific settings
