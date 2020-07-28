@@ -1,6 +1,9 @@
 [core]
 	editor = nvim
 	excludesfile = ~/.gitignore
+[user]
+	email = nguyen.v.richard@gmail.com
+	name = Richard Nguyen
 [include]
 	path = .gitconfig.d/aliases
 [includeIf "gitdir:~/git/appnexus.com/"]
@@ -17,3 +20,5 @@
 	submodule = diff
 [rerere]
 	enable = true
+[tag]
+	sort = creatordate
