@@ -1,6 +1,8 @@
+[user]
+	email = richard.nguyen@xandr.com
+	name = Richard Nguyen
 [user "ssh://git@stash.corp.appnexus.com:7999"]
 	email = richard.nguyen@xandr.com
 	name = Richard Nguyen
-[user "ssh://git@git.corp.appnexus.com"]
-	email = richard.nguyen@xandr.com
-	name = Richard Nguyen
+[url "ssh://git@stash.corp.appnexus.com:7999"]
+	insteadOf = https://stash.corp.appnexus.com/scm

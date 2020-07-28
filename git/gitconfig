@@ -3,19 +3,17 @@
 	excludesfile = ~/.gitignore
 [include]
 	path = .gitconfig.d/aliases
+[includeIf "gitdir:~/git/appnexus.com/"]
 	path = .gitconfig.d/appnexus
-[user]
-	email = nguyen.v.richard@gmail.com
-	name = Richard Nguyen
+[includeIf "gitdir:~/git/github.com/"]
+	path = .gitconfig.d/github
 [push]
 	default = matching
 [status]
 	showUntrackedFiles = all
 [grep]
 	patternType = perl
-[url "https://github.com/"]
-	insteadOf = git://github.com/
-[url "ssh://git@stash.corp.appnexus.com:7999"]
-	insteadOf = https://stash.corp.appnexus.com/scm
 [diff]
 	submodule = diff
+[rerere]
+	enable = true

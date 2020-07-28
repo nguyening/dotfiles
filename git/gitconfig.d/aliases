@@ -15,3 +15,4 @@
 	sh = stash
 	shame = blame -w -M
 	unstage = reset --soft HEAD^
+	as = assembler

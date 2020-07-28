@@ -18,3 +18,5 @@ flake8.txt
 
 # Ignore troubleshooting
 .gdb_history
+.clangd
+compile_commands.json
