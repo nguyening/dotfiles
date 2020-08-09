@@ -1,0 +1,7 @@
+clangd.switchSourceHeader
+python.setInterpreter
+document.renameCurrentWord
+clangd.install
+workspace.showOutput
+clangd.update
+clangd.symbolInfo

@@ -83,24 +83,6 @@ nnoremap <C-k> <C-W><C-K>
 nnoremap <C-l> <C-W><C-L>
 nnoremap <C-h> <C-W><C-H>
 
-" Easier buffer navigation
-nnoremap <Leader>j :bnext<CR>
-nnoremap <Leader>k :bprevious<CR>
-
-" Remap CTRL-SPACE to toggle between normal/insertion mode
-noremap <C-SPACE> i
-inoremap <C-SPACE> <Esc>
-
-" Toggle auto-indent for the current file with F8
-function! AutoIndentToggle()
-	if &ai
-		setlocal noautoindent nocindent nosmartindent indentexpr=
-	else
-		setl ai cin si inde<
-	endif
-endfunction
-nnoremap <C-i> :call AutoIndentToggle()<CR>
-
 " These work like * and g*, but do not move the cursor and always set hls.
 :map <Leader>* :let @/ = '\<'.expand('<cword>').'\>'\|set hlsearch<C-M>
 :map <Leader>g* :let @/ = expand('<cword>')\|set hlsearch<C-M><Paste>
@@ -155,9 +137,6 @@ call plug#begin('~/.config/nvim/plugged')
 	" indentLine adds indentation markers for spaces
 	Plug 'Yggdroot/indentLine'
 
-	" vim-puppet adds formatting based on Puppetlabs' style guide
-	Plug 'rodjek/vim-puppet'
-
 	" vim-commentary adds commenting via 'gc'
 	Plug 'tpope/vim-commentary'
 
@@ -170,9 +149,6 @@ call plug#begin('~/.config/nvim/plugged')
 	" vim-unimpaired adds mappings for toggling options + ex commands
 	Plug 'tpope/vim-unimpaired'
 
-	" python-mode adds a variety of nice tools for writing python in vim
-	Plug 'python-mode/python-mode'
-
 	" vim-sneak adds a two-character 'f' motion
 	Plug 'justinmk/vim-sneak'
 
@@ -181,9 +157,6 @@ call plug#begin('~/.config/nvim/plugged')
 
 	" vim-repeat adds '.' for plugins
 	Plug 'tpope/vim-repeat'
-
-	" vim-go adds golang support
-	Plug 'fatih/vim-go'
 
 	" base16 theme colors
 	Plug 'chriskempson/base16-vim'
@@ -207,7 +180,7 @@ let g:vista_fzf_preview = ['right:50%']
 let g:vista#renderer#enable_icon = 0
 let g:vista_keep_fzf_colors = 1
 
-nnoremap <Leader>c :Vista finder coc<Cr>
+nnoremap <Leader>v :Vista finder coc<Cr>
 
 " coc
 let g:coc_node_path = '~/.config/nvm/versions/node/v12.14.0/bin/node' " I want older node by default
@@ -219,6 +192,11 @@ set updatetime=300
 " Don't pass messages to |ins-completion-menu|
 set shortmess+=c
 
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -228,6 +206,9 @@ nmap <silent> gr <Plug>(coc-references)
 " Remap format format selected regoin
 xmap <leader>f <Plug>(coc-format-selected)
 nmap <leader>f <Plug>(coc-format-selected)
+
+" Rename symbol
+nmap <leader>rn <Plug>(coc-rename)
 
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -240,11 +221,16 @@ function! s:show_documentation()
     endif
 endfunction
 
-inoremap <silent><expr> <TAB>
+nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+
+" Resume latest coc list.
+nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
+inoremap <silent><expr> <C-j>
     \ pumvisible() ? "\<C-n>" :
     \ <SID>check_back_space() ? "\<TAB>" :
     \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
     let col = col('.') - 1
@@ -253,17 +239,6 @@ endfunction
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
-
-" ncm2
-" let g:ncm2_pyclang#library_path = '/usr/lib/llvm-3.8/lib'
-" let $NVIM_PYTHON_LOG_FILE="/tmp/nvim_log"
-" let $NVIM_PYTHON_LOG_LEVEL="DEBUG"
-" 
-" au BufEnter * call ncm2#enable_for_buffer()
-" autocmd Filetype c,cpp nnoremap <buffer> gd :<c-u>call ncm2_pyclang#goto_declaration()<cr>
-" set completeopt=noinsert,menuone,noselect
-" inoremap <expr> <C-j> (pumvisible() ? "\<C-n>" : "\<C-j>")
-" inoremap <expr> <C-k> (pumvisible() ? "\<C-p>" : "\<C-k>")
 
 " lightline
 let g:lightline = {
@@ -287,7 +262,7 @@ colorscheme base16-grayscale-light
 set termguicolors
 
 " fzf
-nnoremap <C-P> :FZF<CR>
+nnoremap <C-p> :Files<CR>
 nnoremap <Leader>b :Buffers<Cr>
 let g:fzf_colors = {
     \ 'bg': ['bg', 'Title'],
@@ -324,37 +299,8 @@ let g:markdown_syntax_conceal = 0
 " unimpaired
 nnoremap coh :<C-R>=eval(&hls) ? (v:hlsearch ? 'noh' : 'set nohls') : 'set hls'<CR><CR>
 
-" python-mode
-let g:pymode = 1
-let g:pymode_motion = 1
-let g:pymode_indent = 1
-let g:pymode_folding = 0
-let g:pymode_doc_bind = 'K'
-let g:pymode_virtualenv = 1
-
-let g:pymode_warnings = 0
-let g:pymode_trim_whitespaces = 0
-let g:pymode_options = 0
-let g:pymode_options_colorcolumn = 0
-let g:pymode_run = 0
-let g:pymode_breakpoint = 0
-let g:python_breakpoint = 0
-let g:pymode_lint = 0
-let g:pymode_lint_on_write = 0
-let g:pymode_lint_message = 0
-let g:pymode_rope = 0
-let g:pymode_rope_regenerate_on_write = 0
-let g:pymode_rope_completion = 0
-let g:pymode_rope_complete_on_dot = 0
-let g:pymode_rope_completion_bind = ''
-let g:pymode_syntax = 0
-let g:pymode_syntax_all = 0
-let g:pymode_syntax_slow_sync = 0
-
 " FastFold
 let g:fastfold_savehook = 1
-let g:python_folding = 1
-" let g:fastfold_fold_command_suffixes = ['x', 'X', 'a', 'A', 'o', 'O', 'c', 'C']
 
 "  ----------
 "  File-specific settings

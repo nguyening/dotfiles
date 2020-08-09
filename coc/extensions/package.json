@@ -2,6 +2,7 @@
   "dependencies": {
     "coc-clangd": ">=0.4.11",
     "coc-cmake": ">=0.0.1",
-    "coc-json": ">=1.2.6"
+    "coc-json": ">=1.2.6",
+    "coc-python": ">=1.2.12"
   }
 }

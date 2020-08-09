@@ -1,0 +1,46 @@
+{
+  "lists": {
+    "%2Fhome%2Frnguyen%2Fgit%2Fappnexus": {
+      "com%2Fapp_cookiemonster": [
+        "ex",
+        "exten",
+        "commands"
+      ],
+      "com%2Fapp_cookiemonster%2F": {
+        "submodules%2Frtp-common%2Fcommon": [
+          "commands"
+        ]
+      }
+    }
+  },
+  "commands": {
+    "%2Fhome%2Frnguyen%2Fgit%2Fappnexus": {
+      "com%2Fapp_cookiemonster": [
+        "header",
+        "rename",
+        "clangd",
+        "sou",
+        "s"
+      ],
+      "com%2Fapp_cookiemonster%2Fcmserver": [
+        "source"
+      ],
+      "com%2Fhypothesis-an": [
+        "python",
+        "python.setInter",
+        "setInter"
+      ]
+    },
+    "%2Fhome%2Frnguyen": [
+      "python.",
+      "python.set"
+    ]
+  },
+  "symbols": {
+    "%2Fhome%2Frnguyen%2Fgit%2Fappnexus": {
+      "com%2Fapp_cookiemonster": [
+        "hello"
+      ]
+    }
+  }
+}
