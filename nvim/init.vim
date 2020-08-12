@@ -123,7 +123,7 @@ tnoremap <Esc><Esc> <C-\><C-n>
 "
 call plug#begin('~/.config/nvim/plugged')
 	" fzf is a fuzzy file finder, faster than Ctrl-P
-	Plug 'junegunn/fzf'
+	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 	Plug 'junegunn/fzf.vim'
 
 	Plug 'itchyny/lightline.vim'

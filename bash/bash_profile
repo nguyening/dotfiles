@@ -212,6 +212,14 @@ if [ "$OS" = "linux" ]; then
   export CPATH="/usr/local/adnxs/include"
 fi
 
+PATH="$HOME/.poetry/bin:$PATH"
+
+CARGO_HOME="$HOME/.config/cargo"
+RUSTUP_HOME="$HOME/.config/rustup"
+PATH="$HOME/.config/cargo/bin:$PATH"
+
+export CARGO_HOME
+export RUSTUP_HOME
 export PROMPT_COMMAND
 export GIT_AUTHOR_EMAIL
 export GIT_COMMITTER_EMAIL
@@ -243,5 +251,3 @@ fi
 # END bash profiling
 #set +x
 #exec 2>&3 3>&-
-
-export PATH="$HOME/.poetry/bin:$PATH"

@@ -2426,5 +2426,8 @@
       }
     ],
     "SelectedPythonPath": "/home/rnguyen/.cache/pypoetry/virtualenvs/loadtest-TSftfZsq-py3.8/bin/python"
+  },
+  "coc-rust-analyzer|global": {
+    "release": "2020-08-04"
   }
 }
