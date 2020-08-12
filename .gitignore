@@ -3,5 +3,8 @@ nvim/autoload/.neobundle
 nvim/autoload/NeoBundle.lock
 nvim/.netrwhist
 coc/extensions/node_modules
-coc/extensions/coc-clangd-data
-coc/extensions/coc-python-data
+coc/extensions/coc-*-data
+rustup/toolchains
+rustup/update-hashes
+yarn/global/yarn.lock
+cargo/bin
