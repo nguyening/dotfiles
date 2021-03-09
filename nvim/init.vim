@@ -4,7 +4,7 @@
 
 let g:python_host_prog = expand('~/.pyenv/versions/neovim/bin/python')
 let g:python3_host_prog = '/usr/bin/python3'
-let &shell = 'bash --login'
+" let &shell = 'bash --login'
 
 "  ----------
 "  General VIM settings

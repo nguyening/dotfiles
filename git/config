@@ -1,16 +1,13 @@
 [core]
 	editor = nvim
 	pager = delta
-	excludesfile = ~/.gitignore
 [user]
 	email = nguyen.v.richard@gmail.com
 	name = Richard Nguyen
 [include]
-	path = .gitconfig.d/aliases
-[includeIf "gitdir:~/git/appnexus.com/"]
-	path = .gitconfig.d/appnexus
+	path = ~/.config/git/gitconfig.d/aliases
 [includeIf "gitdir:~/git/github.com/"]
-	path = .gitconfig.d/github
+	path = ~/.config/git/gitconfig.d/github
 [push]
 	default = matching
 [status]

@@ -1,0 +1,11 @@
+import:
+- ~/.config/alacritty/base16-grayscale-light.yml
+
+live_config_reload: true
+
+window:
+  dimensions:
+    columns: 120
+    lines: 80
+font:
+  size: 22.0
