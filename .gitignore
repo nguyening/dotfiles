@@ -7,6 +7,8 @@ coc/extensions/coc-*-data
 coc/extensions/package.json
 coc/list-extensions-history.json
 coc/list-lists-history.json
+coc/list-commands-history.json
+coc/list-location-history.json
 rustup/toolchains
 rustup/update-hashes
 yarn/global/yarn.lock
