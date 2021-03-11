@@ -4,6 +4,9 @@ nvim/autoload/NeoBundle.lock
 nvim/.netrwhist
 coc/extensions/node_modules
 coc/extensions/coc-*-data
+coc/extensions/package.json
+coc/list-extensions-history.json
+coc/list-lists-history.json
 rustup/toolchains
 rustup/update-hashes
 yarn/global/yarn.lock

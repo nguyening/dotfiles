@@ -4,3 +4,9 @@
 [submodule "nvm"]
 	path = nvm
 	url = https://github.com/creationix/nvm.git
+[submodule "powerlevel10k"]
+	path = zsh/powerlevel10k
+	url = https://github.com/romkatv/powerlevel10k.git
+[submodule "zsh-vim-mode"]
+	path = zsh/zsh-vim-mode
+	url = https://github.com/softmoth/zsh-vim-mode.git
