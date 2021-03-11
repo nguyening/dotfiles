@@ -13,9 +13,6 @@ fi
 source ~/.config/zsh/powerlevel10k/powerlevel10k.zsh-theme
 source ~/.config/bash/z/z.sh
 source ~/.config/zsh/datadog.zsh
-
-# Use Control-D instead of Escape to switch to NORMAL mode
-VIM_MODE_VICMD_KEY='^D'
 source ~/.config/zsh/zsh-vim-mode/zsh-vim-mode.plugin.zsh
 
 HISTFILE=~/.zsh_history
@@ -27,7 +24,7 @@ setopt HIST_IGNORE_DUPS
 
 alias ..="cd .."
 alias ...="cd ../.."
-alias ll="ls -alh --color=auto --group-directories-first"
+alias ll="ls -alh"
 alias grep="grep --color=auto --line-buffered"
 
 export NVM_DIR="$XDG_CONFIG_HOME/nvm"
@@ -66,3 +63,5 @@ load_ssh_session
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
