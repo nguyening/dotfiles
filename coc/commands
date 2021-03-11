@@ -1,5 +1,6 @@
-clangd.switchSourceHeader
+pyright.version
 python.setInterpreter
+clangd.switchSourceHeader
 document.renameCurrentWord
 clangd.install
 workspace.showOutput

@@ -2,7 +2,7 @@
 "  General NeoVIM settings
 "  ----------
 
-let g:python3_host_prog = expand('~/.pyenv/versions/neovim/bin/python')
+let g:python3_host_prog = expand('~/.pyenv/versions/3.7.9/bin/python')
 
 "  ----------
 "  General VIM settings
@@ -41,6 +41,9 @@ set shiftround        " < and > commands for indention
 set backspace=indent,eol,start " make backspace work like every other app
 
 set mousemodel=popup  " Disable mouse selection entering the Visual mode
+
+set timeoutlen=1000   " Quicker mode switching
+set ttimeoutlen=10
 
 set lazyredraw
 
@@ -181,7 +184,7 @@ let g:vista_keep_fzf_colors = 1
 nnoremap <Leader>v :Vista finder coc<Cr>
 
 " coc
-let g:coc_node_path = '~/.config/nvm/versions/node/v14.16.0/bin/node' " I want older node by default
+let g:coc_node_path = '~/.config/nvm/versions/node/v14.16.0/bin/node'
 
 " Having longer updatetime (default is 4000ms = s) 
 " leads to noticeable delays and poor UX

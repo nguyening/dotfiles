@@ -11,3 +11,9 @@ rustup/toolchains
 rustup/update-hashes
 yarn/global/yarn.lock
 cargo/bin
+
+# ddog
+gcloud
+helm
+ddtool
+configstore/update-notifier-npm.json
