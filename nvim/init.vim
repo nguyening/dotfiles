@@ -2,9 +2,7 @@
 "  General NeoVIM settings
 "  ----------
 
-let g:python_host_prog = expand('~/.pyenv/versions/neovim/bin/python')
-let g:python3_host_prog = '/usr/bin/python3'
-" let &shell = 'bash --login'
+let g:python3_host_prog = expand('~/.pyenv/versions/neovim/bin/python')
 
 "  ----------
 "  General VIM settings
@@ -183,7 +181,7 @@ let g:vista_keep_fzf_colors = 1
 nnoremap <Leader>v :Vista finder coc<Cr>
 
 " coc
-let g:coc_node_path = '~/.config/nvm/versions/node/v12.14.0/bin/node' " I want older node by default
+let g:coc_node_path = '~/.config/nvm/versions/node/v14.16.0/bin/node' " I want older node by default
 
 " Having longer updatetime (default is 4000ms = s) 
 " leads to noticeable delays and poor UX
