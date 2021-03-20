@@ -12,7 +12,6 @@ fi
 
 source ~/.config/zsh/powerlevel10k/powerlevel10k.zsh-theme
 source ~/.config/bash/z/z.sh
-source ~/.config/zsh/datadog.zsh
 source ~/.config/zsh/zsh-vim-mode/zsh-vim-mode.plugin.zsh
 
 HISTFILE=~/.zsh_history
@@ -35,31 +34,6 @@ if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
   eval "$(pyenv virtualenv-init -)"
 fi
-
-export SSH_ENV="/Users/richard.nguyen/.ssh/environment"
-start_ssh_agent() {
-    echo "Initialising new SSH agent..."
-    ssh-agent -s | sed 's/^echo/#echo/' > ${SSH_ENV}
-    echo succeeded
-    chmod 600 ${SSH_ENV}
-    . ${SSH_ENV} > /dev/null
-    ssh-add -k;
-}
-
-# Source SSH settings, if applicable
-load_ssh_session() {
-    if [ -f "${SSH_ENV}" ]; then
-        . ${SSH_ENV} > /dev/null
-        #ps ${SSH_AGENT_PID} doesn't work under cywgin
-        ps aux ${SSH_AGENT_PID} | grep 'ssh-agent -s$' > /dev/null || {
-            start_ssh_agent;
-        }
-    else
-        start_ssh_agent;
-    fi
-}
-
-load_ssh_session
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
