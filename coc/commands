@@ -1,8 +1,0 @@
-pyright.version
-python.setInterpreter
-clangd.switchSourceHeader
-document.renameCurrentWord
-clangd.install
-workspace.showOutput
-clangd.update
-clangd.symbolInfo
