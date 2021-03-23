@@ -2,6 +2,7 @@ nvim/plugged
 nvim/autoload/.neobundle
 nvim/autoload/NeoBundle.lock
 nvim/.netrwhist
+coc/commands
 coc/extensions/node_modules
 coc/extensions/coc-*-data
 coc/extensions/package.json
@@ -13,6 +14,8 @@ rustup/toolchains
 rustup/update-hashes
 yarn/global/yarn.lock
 cargo/bin
+nvim/coc-settings.json
+op/
 
 # ddog
 gcloud
