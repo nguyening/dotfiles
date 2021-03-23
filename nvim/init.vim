@@ -2,7 +2,7 @@
 "  General NeoVIM settings
 "  ----------
 
-let g:python3_host_prog = expand('~/.pyenv/versions/3.7.9/bin/python')
+let g:python3_host_prog = expand('~/.pyenv/versions/neovim3/bin/python')
 
 "  ----------
 "  General VIM settings
@@ -263,8 +263,14 @@ colorscheme base16-grayscale-light
 set termguicolors
 
 " fzf
-nnoremap <C-p> :Files<CR>
-nnoremap <Leader>b :Buffers<Cr>
+let g:fzf_layout = {
+    \ 'window': {
+        \ 'width': 1.0,
+        \ 'height': 0.25,
+        \ 'yoffset': 1,
+        \ 'border': 'horizontal'
+    \ }
+\}
 let g:fzf_colors = {
     \ 'bg': ['bg', 'Title'],
     \ 'bg+': ['bg', 'CursorLineNr'],
@@ -275,6 +281,9 @@ let g:fzf_colors = {
     \ 'border': ['bg', 'TermCursor'],
     \ 'prompt': ['fg', 'ErrorMsg']
 \}
+
+nnoremap <C-p> :Files<CR>
+nnoremap <Leader>b :Buffers<Cr>
 
 " signify
 let g:signify_sign_add               = '+'

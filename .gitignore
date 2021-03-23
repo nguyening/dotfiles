@@ -10,12 +10,14 @@ coc/list-extensions-history.json
 coc/list-lists-history.json
 coc/list-commands-history.json
 coc/list-location-history.json
+coc/memos.json
 rustup/toolchains
 rustup/update-hashes
 yarn/global/yarn.lock
 cargo/bin
 nvim/coc-settings.json
 op/
+zsh/datadog.zsh
 
 # ddog
 gcloud
