@@ -24,6 +24,8 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ll="ls -alh"
 alias grep="grep --color=auto --line-buffered"
+alias g="git"
+alias v="nvim"
 
 export NVM_DIR="$XDG_CONFIG_HOME/nvm"
 [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
@@ -32,6 +34,10 @@ export NVM_DIR="$XDG_CONFIG_HOME/nvm"
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
   eval "$(pyenv virtualenv-init -)"
+fi
+
+if command -v direnv 1>/dev/null 2>&1; then
+  eval "$(direnv hook zsh)"
 fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.

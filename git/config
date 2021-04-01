@@ -8,6 +8,12 @@
 	path = ~/.config/git/gitconfig.d/aliases
 [includeIf "gitdir:~/git/github.com/"]
 	path = ~/.config/git/gitconfig.d/github
+[includeIf "gitdir:~/dd/"]
+	path = ~/.config/git/gitconfig.d/datadog
+[includeIf "gitdir/i:~/git/github.com/DataDog/"]
+	path = ~/.config/git/gitconfig.d/datadog
+[includeIf "gitdir/i:~/go/src/github.com/DataDog/"]
+	path = ~/.config/git/gitconfig.d/datadog
 [push]
 	default = matching
 [status]

@@ -1,4 +1,5 @@
 [alias]
+	f = fetch
 	co = checkout --recurse-submodules
 	cod = checkout -d --recurse-submodules
 	br = branch
@@ -10,7 +11,6 @@
 	pl = pull
 	poh = push origin HEAD
 	stash-all = stash save --include-untracked
-	sgrep = "!f() { git grep \"$1\"; git submodule foreach \"git grep '$1'; true\" | grep -B 1 \"$1\"; }; f"
 	graph = log --graph --all --decorate --stat --date=iso
 	sh = stash
 	shame = blame -w -M

@@ -91,33 +91,6 @@ nnoremap <C-h> <C-W><C-H>
 " Double-tap Esc to go into Normal mode from Terminal
 tnoremap <Esc><Esc> <C-\><C-n>
 
-" yank + pbcopy
-" function! PbCopyYank(type, ...) abort
-"     let is_visual = get(a:, 0,0 )
-"     let sel_save = &selection
-"     let &selection = "inclusive"
-"     let reg_save = @@
-" 
-"     " actually yank it
-"     if is_visual
-"         echo "visual"
-"         exe "normal! gvy"
-"     elseif a:type == 'line'
-"         exe "normal! '[V']y"
-"     else
-"         exe "normal! `[v`]y"
-"     endif
-" 
-"     call system('ssh local pbcopy -', @0)
-" 
-" 	let &selection = sel_save
-" endfunction
-" 
-" nnoremap <silent> <Plug>(pb-copy-yank) :set opfunc=PbCopyYank<CR>g@
-" xnoremap <silent> <Plug>(pb-copy-yank) :<C-u>call PbCopyYank(visualmode(), 1)<CR>
-" onoremap <silent> <Plug>(pb-copy-yank) g@
-" map y <Plug>(pb-copy-yank)
-
 "  ----------
 "  Plugins - :PlugInstall to install
 "  ----------
