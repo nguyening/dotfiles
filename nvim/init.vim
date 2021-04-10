@@ -104,6 +104,7 @@ call plug#begin('~/.config/nvim/plugged')
 
 	" fugitive adds git functionality as commands
 	Plug 'tpope/vim-fugitive'
+	Plug 'tpope/vim-rhubarb'
 
 	" signify shows a git diff in the sign column
 	Plug 'mhinz/vim-signify'
@@ -140,6 +141,11 @@ call plug#begin('~/.config/nvim/plugged')
 
 	" Show LSP/tag information in a sidebar
 	Plug 'liuchengxu/vista.vim'
+
+	" better than folds
+	Plug 'wellle/context.vim'
+
+	Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 call plug#end()  " end plugin loading and setup
 
 
@@ -255,8 +261,9 @@ let g:fzf_colors = {
     \ 'prompt': ['fg', 'ErrorMsg']
 \}
 
-nnoremap <C-p> :Files<CR>
+nnoremap <C-p> :GFiles<CR>
 nnoremap <Leader>b :Buffers<Cr>
+nnoremap <Leader>s :Ag 
 
 " signify
 let g:signify_sign_add               = '+'

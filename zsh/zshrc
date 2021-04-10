@@ -10,6 +10,7 @@ fi
 [ -f ~/.config/zsh/zsh-vim-mode/zsh-vim-mode.plugin.zsh ] && source ~/.config/zsh/zsh-vim-mode/zsh-vim-mode.plugin.zsh
 [ -f ~/.config/bash/z/z.sh ] && _Z_NO_RESOLVE_SYMLINKS=1 source ~/.config/bash/z/z.sh
 [[ -z "$DATADOG" ]] || source ~/.config/zsh/datadog.zsh
+export PATH="$PATH:$(go env GOPATH)/bin"
 
 zstyle ':completion:*' menu select
 
@@ -42,4 +43,7 @@ fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Use silver searcher for fuzzy searching speed + respecting .ignore files
+export FZF_DEFAULT_COMMAND=ag
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
